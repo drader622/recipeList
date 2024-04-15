@@ -3,14 +3,29 @@
     <div class="container-fluid">
       <div class="row">
         <!-- loop over the collection of recipes -->
-        
+
         <div *ngFor="let tempRecipe of recipes" class="col-md-3">
-            <div class="product-box">
-                <img src="{{ tempRecipe.imageUrl }}" class="img-responsive">
-                <h1>{{ tempRecipe.title }}</h1>
-                <div>{{ tempRecipe.description }}</div>
-                <a href="#" class="primary-btn">Add to list</a>
-            </div>
+          <div class="product-box">
+            <a routerLink="/recipes/{{ tempRecipe.id }}">
+              <img src="{{ tempRecipe.imageUrl }}" class="img-responsive" />
+            </a>
+
+            <a routerLink="recipes/{{ tempRecipe.id }}">
+              <h1>{{ tempRecipe.title }}</h1>
+
+            </a>
+              <div>{{ tempRecipe.description }}</div>
+            <a href="#" class="primary-btn">Add to list</a>
+          </div>
+        </div>
+
+        <!-- if recipes empty then display a message -->
+        <div
+          *ngIf="recipes?.length == 0"
+          class="alert alert-warning col-md-12"
+          role="alert"
+        >
+          No products found.
         </div>
       </div>
     </div>

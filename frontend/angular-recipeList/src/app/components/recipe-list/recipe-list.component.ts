@@ -11,18 +11,41 @@ import { ActivatedRoute } from '@angular/router';
 export class RecipeListComponent {
   recipes: Recipe[] = [];
   currentCategoryId: number = 1;
+  searchMode: boolean = false;
 
-  constructor(private recipeService: RecipeService, 
-              private route: ActivatedRoute
+  constructor(
+      private recipeService: RecipeService, 
+      private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
       this.listRecipes();
     });
+    this.listRecipes();
   }
   listRecipes() {
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
+    if (this.searchMode) {
+      this.handleSearchRecipes();
+    }
+    else {
+      this.handleListRecipes();
+    }
+  }
+
+    handleSearchRecipes() {
+      const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+
+      // now search for the recipes using keyword
+      this.recipeService.searchRecipes(theKeyword).subscribe(
+        data => {
+          this.recipes = data;
+        }
+      )
+    }
+  handleListRecipes() {
     // check if "id" param is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
@@ -40,4 +63,5 @@ export class RecipeListComponent {
       this.recipes = data;
     });
   }
+
 }

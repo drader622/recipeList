@@ -8,7 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { RecipeService } from './services/recipe.service';
 
 import { Routes, RouterModule } from '@angular/router';
+import { RecipeCategoryMenuComponent } from './components/recipe-category-menu/recipe-category-menu.component';
+import { SearchComponent } from './components/search/search.component';
+import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
+
 const routes: Routes = [
+  { path: 'recipes/:id', component: RecipeDetailsComponent },
+  { path: 'search/:keyword', component: RecipeListComponent },
   { path: 'category/:id', component: RecipeListComponent },
   { path: 'category', component: RecipeListComponent },
   { path: 'recipes', component: RecipeListComponent },
@@ -17,7 +23,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, RecipeListComponent],
+  declarations: [
+    AppComponent,
+    RecipeListComponent,
+    RecipeCategoryMenuComponent,
+    SearchComponent,
+    RecipeDetailsComponent,
+  ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,

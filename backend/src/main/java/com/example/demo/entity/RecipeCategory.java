@@ -15,7 +15,7 @@ public class RecipeCategory {
     private Long id;
 
     @Column(name = "category_name")
-    private String categoryname;
+    private String categoryName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private Set<Recipe> recipes;
