@@ -1,0 +1,21 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Difficulty</th>
+            <th>Cook Time</th>
+            <th>Good For</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let tempRecipe of recipes">
+            <td>{{ tempRecipe.title }}</td>
+            <td>{{ tempRecipe.description }}</td>
+            <td>{{ tempRecipe.difficulty }}</td>
+            <td>{{ tempRecipe.cookTime }} minutes</td>
+            <td>{{ tempRecipe.daysGood }} days</td>
+        </tr>
+    </tbody>
+</table>

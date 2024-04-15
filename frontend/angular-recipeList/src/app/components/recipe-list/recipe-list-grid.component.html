@@ -1,0 +1,18 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- loop over the collection of recipes -->
+        
+        <div *ngFor="let tempRecipe of recipes" class="col-md-3">
+            <div class="product-box">
+                <img src="{{ tempRecipe.imageUrl }}" class="img-responsive">
+                <h1>{{ tempRecipe.title }}</h1>
+                <div>{{ tempRecipe.description }}</div>
+                <a href="#" class="primary-btn">Add to list</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
