@@ -23,7 +23,7 @@ export class RecipeListComponent {
   }
   listRecipes() {
 
-    // chekc if "id" param is available
+    // check if "id" param is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
     if (hasCategoryId) {
