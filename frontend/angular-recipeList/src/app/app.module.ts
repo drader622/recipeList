@@ -5,12 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RecipeService } from './services/recipe.service';
+import { RecipeService } from './services/recipe/recipe.service';
 
 import { Routes, RouterModule } from '@angular/router';
 import { RecipeCategoryMenuComponent } from './components/recipe-category-menu/recipe-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IngredientListComponent } from './components/ingredient-list/ingredient-list.component';
 
 const routes: Routes = [
   { path: 'recipes/:id', component: RecipeDetailsComponent },
@@ -29,12 +32,14 @@ const routes: Routes = [
     RecipeCategoryMenuComponent,
     SearchComponent,
     RecipeDetailsComponent,
+    IngredientListComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    NgbModule,
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent],
