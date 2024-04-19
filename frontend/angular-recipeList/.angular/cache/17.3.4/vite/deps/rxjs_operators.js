@@ -1,8 +1,4 @@
 import {
-  partition,
-  race
-} from "./chunk-UKEHM6V6.js";
-import {
   audit,
   auditTime,
   buffer,
@@ -61,13 +57,15 @@ import {
   min,
   multicast,
   observeOn,
-  onErrorResumeNext2 as onErrorResumeNext,
+  onErrorResumeNext,
   pairwise,
+  partition,
   pluck,
   publish,
   publishBehavior,
   publishLast,
   publishReplay,
+  race2 as race,
   raceWith,
   reduce,
   refCount,
@@ -114,7 +112,7 @@ import {
   zip2 as zip,
   zipAll,
   zipWith
-} from "./chunk-ZDOIMVJD.js";
+} from "./chunk-SJHLCYEH.js";
 export {
   audit,
   auditTime,

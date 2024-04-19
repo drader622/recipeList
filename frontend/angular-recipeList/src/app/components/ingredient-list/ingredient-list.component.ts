@@ -6,23 +6,25 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-ingredient-list',
   templateUrl: './ingredient-list.component.html',
-  styleUrl: './ingredient-list.component.css'
+  styleUrl: './ingredient-list.component.css',
 })
 export class IngredientListComponent implements OnInit {
   ingredient!: Ingredient;
-  // searchMode: boolean = false;
+
+  ingredients: Ingredient[] = [];
+  currentRecipeId: number = 1;
 
   constructor(
     private ingredientService: IngredientService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.ingredientService: null;
     this.route.paramMap.subscribe(() => {
       this.handleSearchIngredients();
     });
   }
-
 
   handleSearchIngredients() {
     const theIngredientId: number = +this.route.snapshot.paramMap.get('id')!;
@@ -30,6 +32,34 @@ export class IngredientListComponent implements OnInit {
     this.ingredientService.getIngredient(theIngredientId).subscribe((data) => {
       this.ingredient = data;
     })
+
+    this.ingredients = this.ingredientService.getIngredientList(theIngredientId);
+    // console.log(this.ingredients)
   }
-  
+
+  handleIngredientList() {
+        const theIngredientId: number =
+      +this.route.snapshot.paramMap.get('id')!;
+    
+        this.ingredientService.getIngredientList(theIngredientId);
+  }
+
+  // ngOnInit(): void {
+  //   this.listIngredients();
+  // }
+
+  // listIngredients() {
+  //   this.handleListIngredients();
+  // }
+
+  // handleListIngredients() {
+  //   const theRecipeId: number = +this.route.snapshot.paramMap.get('id')!;
+    
+  //   this.ingredientService
+  //     .getIngredientList(theRecipeId)
+  //     .subscribe((data) => {
+  //       console.log(`The Data: ${data}`);
+  //       this.ingredients = data;
+  //     });
+  // }
 }
