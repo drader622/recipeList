@@ -19,7 +19,7 @@ public class RecipeIngredient {
     private String name;
 
     @Column(name = "amount")
-    private int amount;
+    private double amount;
 
     @Column(name = "unit")
     private String unit;

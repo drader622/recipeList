@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
 import { Ingredient } from '../../common/ingredient';
 
 @Injectable({
@@ -15,44 +14,39 @@ export class IngredientService {
   getIngredient(theIngredientId: number) {
     const ingredientUrl = `${this.baseUrl}/${theIngredientId}`;
 
-    // this.getIngredientList(theIngredientId);
-
     return this.httpClient.get<Ingredient>(ingredientUrl);
   }
 
   getIngredientList(theRecipeId: number): Ingredient[] {
+    console.log(`Recipe ID: ${theRecipeId}`);
     const searchURL = `${this.baseUrl}/search/findByRecipeId?id=${theRecipeId}`;
-    // console.log('success');
+
+    this.ingredients = [];
 
     this.httpClient
       .get<GetResponseIngredients>(searchURL)
-      .subscribe((val) => val._embedded.recipeIngredients.forEach(item => this.ingredients.push(item)));
-    
-    console.log(this.ingredients[0]);
+      .subscribe((val) =>
+        val._embedded.recipeIngredients.forEach((item) =>
+          this.ingredients.push(item)
+        )
+      );
+
+    console.log(this.ingredients);
 
     return this.ingredients;
   }
+  getIngredientsForGrocery(theRecipeId: number) {
+    console.log(`Recipe ID: ${theRecipeId}`);
+    const searchURL = `${this.baseUrl}/search/findByRecipeId?id=${theRecipeId}`;
 
-  private getIngredients(searchUrl: string): void {
-    // console.log('success');
-    // this.httpClient
-    //   .get<GetResponseIngredients>(searchUrl)
-    //   .pipe(map((response) => response._embedded.recipeIngredients));
+    this.ingredients = [];
 
-    // console.log(
-    //   this.httpClient
-    //     .get<GetResponseIngredients>(searchUrl)
-    //     .pipe(map((response) => response._embedded.recipeIngredients))
-    // );
-
-    // return this.httpClient
-    //   .get<GetResponseIngredients>(searchUrl)
-    //   .pipe(map((response) => response._embedded.recipeIngredients));
+    return this.httpClient.get<GetResponseIngredients>(searchURL)
   }
 }
 
 interface GetResponseIngredients {
   _embedded: {
     recipeIngredients: Ingredient[];
-  }
+  };
 }

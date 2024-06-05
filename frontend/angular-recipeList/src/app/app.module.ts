@@ -14,6 +14,7 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IngredientListComponent } from './components/ingredient-list/ingredient-list.component';
+import { GroceryListStatusComponent } from './components/grocery-list-status/grocery-list-status.component';
 
 const routes: Routes = [
   { path: 'recipes/:id', component: RecipeDetailsComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
     SearchComponent,
     RecipeDetailsComponent,
     IngredientListComponent,
+    GroceryListStatusComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

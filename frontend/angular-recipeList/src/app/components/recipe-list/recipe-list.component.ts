@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../../services/recipe/recipe.service';
 import { Recipe } from '../../common/recipe';
 import { ActivatedRoute } from '@angular/router';
+import { Ingredient } from '../../common/ingredient';
+import { IngredientService } from '../../services/ingredient/ingredient.service';
+import { GroceryListItem } from '../../common/grocery-list-item';
+import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -10,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [];
+  ingredients: Ingredient[] = [];
+  groceryList: Ingredient[] = [];
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   searchMode: boolean = false;
@@ -20,6 +26,8 @@ export class RecipeListComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
+    private ingredientService: IngredientService,
+    private groceryListService: GroceryListService,
     private route: ActivatedRoute
   ) {}
 
@@ -101,5 +109,24 @@ export class RecipeListComponent implements OnInit {
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements;
     };
+  }
+
+  addToList(theRecipe: Recipe) {
+    const recipeId: number = theRecipe.id;
+    this.ingredientService
+      .getIngredientsForGrocery(recipeId)
+      .subscribe((data) => {
+        data._embedded.recipeIngredients.forEach((item) => {
+          this.ingredients.push(item);
+          console.log(
+            `Adding to cart: ${item.amount} ${item.unit} ${item.name} `
+          );
+
+          const theGroceryListItem = new GroceryListItem(item);
+            this.groceryListService.addToList(theGroceryListItem);
+        });
+      });
+
+
   }
 }
