@@ -11,13 +11,18 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
+html {
+  height: 100%;
+  background-color: #e5e5e5 !important;
+}
 body {
   font-family: Poppins, sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.625;
   color: #666;
+  height: 100%;
+  background-color: #e5e5e5 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -117,7 +122,6 @@ a:hover {
 .page-wrapper {
   overflow: hidden;
   background: #e5e5e5;
-  padding-bottom: 8vh;
 }
 
 .page-container {
@@ -126,8 +130,16 @@ a:hover {
 }
 
 .main-content {
-  padding-top: 116px;
-  min-height: 100vh;
+  min-height: 733px;
+}
+
+.main-content .dropdown {
+  text-align: center;
+}
+
+.main-content .recipeRow {
+  min-height: 645px;
+  margin: 2rem;
 }
 
 aside.menu-sidebar.d-none.d-lg-block.clr {
@@ -396,7 +408,7 @@ input.au-input.au-input-xl {
   display: block;
   color: #555;
   font-size: 16px;
-    color: white;
+  color: white;
   /* padding: 5px 0; */
   text-decoration: none;
 }
@@ -407,7 +419,7 @@ input.au-input.au-input-xl {
 
 .navbar-sidebar .navbar-list li a:hover {
   color: #205b8d;
-  transition: all 0.0s ease !important;
+  transition: all 0s ease !important;
 }
 
 .navbar-sidebar .navbar-list li:hover {
@@ -577,7 +589,19 @@ input.au-input.au-input-xl {
   margin-left: 5px;
 }
 .product-box {
-  margin-bottom: 60px;
+  height: 17rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
+
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.product-box .btn {
+  width: 50%;
+  align-self: flex-start;
 }
 .price {
   margin: 15px 0 0;
@@ -761,19 +785,24 @@ table.table.table-bordered th {
   color: #0da8e4;
 }
 .detail-section {
-  margin-top: 80px;
+  margin: 3.75rem 0;
+  padding: 0 4rem 5rem;
   display: flex;
+  min-height: 645px;
 }
 .detail-section div {
-  width: 50%;
+  width: 40%;
 }
-
+.detail-section .btn {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
 .detail-img {
   width: 30%;
 }
 
 .ingredient-section {
-  width: 100% !important;
+  width: 90% !important;
 }
 
 /**/
@@ -826,6 +855,9 @@ footer {
   position: relative;
   text-align: center;
 }
+/* footer ul {
+  margin-bottom: 0;
+} */
 footer li a {
   color: #313131;
   font-weight: 500;
