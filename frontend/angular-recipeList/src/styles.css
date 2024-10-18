@@ -122,7 +122,7 @@ a:hover {
 
 .page-container {
   background: #e5e5e5;
-  padding-left: 200px;
+  padding-left: 0px;
 }
 
 .main-content {
@@ -148,20 +148,23 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
-  position: fixed;
+  /* position: fixed; */
+  display: flex;
+  justify-content: center;
   top: 0;
   right: 0;
-  left: 200px;
+  left: 0px;
   height: 75px;
   z-index: 3;
 }
 
 .header-desktop .section-content {
   overflow: visible;
-  position: absolute;
+  /* position: absolute; */
   top: 50%;
   left: 0;
   right: 0;
+  margin: 0;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -366,21 +369,35 @@ input.au-input.au-input-xl {
 
 .menu-sidebar-content {
   position: relative;
-  height: -webkit-calc(100vh - 75px);
-  height: -moz-calc(100vh - 75px);
-  height: calc(100vh - 75px);
 }
 
 .navbar-sidebar {
-  padding: 35px;
   padding-bottom: 0;
+}
+
+.navbar-list {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  height: 2.4rem;
+  line-height: 2.4rem;
+  margin: 0;
+  padding: 0 8rem;
+
+  background-color: #205b8d;
+}
+
+.navbar-list li {
+  text-align: center;
+  width: 50%;
 }
 
 .navbar-sidebar .navbar-list li a {
   display: block;
   color: #555;
   font-size: 16px;
-  padding: 5px 0;
+    color: white;
+  /* padding: 5px 0; */
   text-decoration: none;
 }
 
@@ -389,9 +406,14 @@ input.au-input.au-input-xl {
 }
 
 .navbar-sidebar .navbar-list li a:hover {
-  color: #0da8e4;
+  color: #205b8d;
+  transition: all 0.0s ease !important;
 }
 
+.navbar-sidebar .navbar-list li:hover {
+  background-color: white;
+  transition: all 0.3s ease;
+}
 /* 
  * ----------------------------
  * Header Mobile Section
@@ -784,7 +806,9 @@ a.primary-btn:hover {
 }
 
 .active-link {
+  color: #205b8d !important;
   font-weight: bold;
+  background-color: white;
 }
 
 /* 
