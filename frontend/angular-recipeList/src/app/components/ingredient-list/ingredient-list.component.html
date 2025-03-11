@@ -1,0 +1,7 @@
+<h3>Ingredients</h3>
+<div class="ingredient-section" *ngFor="let tempIngredient of ingredients"> 
+  <div>
+    {{ tempIngredient.amount }} {{ tempIngredient.unit }}
+    {{ tempIngredient.name }}
+  </div>
+</div>

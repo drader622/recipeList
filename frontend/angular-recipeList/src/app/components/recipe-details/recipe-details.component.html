@@ -1,0 +1,23 @@
+<div class="detail-section">
+  <div class="container-fluid">
+    <img src="{{ recipe.imageUrl }}" class="detail-img" />
+    <h3>{{ recipe.title }}</h3>
+    <div>{{ recipe.description }}</div>
+
+    <hr />
+    <div>Difficulty: {{ recipe.difficulty }}</div>
+    <div>Prep & Cook Time: {{ recipe.cookTime }} minutes</div>
+    <div>Cook Within: {{ recipe.daysGood }} days</div>
+
+    <button (click)="addToList()" class="btn btn-primary btn-md">
+      Add to list
+    </button>
+
+    <br>
+    <a routerLink="/recipes" class="mt-5">Back to Recipes</a>
+
+  </div>
+  <div class="container-fluid">
+    <app-ingredient-list class=""></app-ingredient-list>
+  </div>
+</div>

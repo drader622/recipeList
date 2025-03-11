@@ -1,0 +1,67 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row recipeRow">
+        <!-- loop over the collection of recipes -->
+
+        <div *ngFor="let tempRecipe of recipes" class="col-md-3">
+          <div class="product-box">
+            <a routerLink="/recipes/{{ tempRecipe.id }}">
+              <img src="{{ tempRecipe.imageUrl }}" class="img-responsive" />
+            </a>
+
+            <a routerLink="/recipes/{{ tempRecipe.id }}">
+              <h1>{{ tempRecipe.title }}</h1>
+
+            </a>
+              <div>{{ tempRecipe.description }}</div>
+            <button (click)="addToList(tempRecipe)" class="btn btn-primary btn-small">Add to list</button>
+          </div>
+        </div>
+
+        <!-- if recipes empty then display a message -->
+        <div
+          *ngIf="recipes?.length == 0"
+          class="alert alert-warning col-md-12"
+          role="alert"
+        >
+          No products found.
+        </div>
+      </div>
+
+      <!-- begin footer -->
+      <div class="footer-pagination">
+        <div class="row">
+          <div class="col-md-6"></div>
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9" style="padding-left: 30%">
+                <ngb-pagination [(page)]="thePageNumber"
+                                [pageSize]="thePageSize"
+                                [collectionSize]="theTotalElements"
+                                [maxSize]="5"
+                                (pageChange)="listRecipes()">
+
+                </ngb-pagination>
+              </div>
+
+              <div class="col-md-3 mt-2" style="text-align: right;">
+                <span class="mr-2">Page Size</span>
+                <select #myPageSelect (change)="updatePageSize(myPageSelect.value)" class="dropdown">
+                  <option selected="true">5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end footer -->
+
+    </div>
+  </div>
+</div>
