@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { GroceryListItem } from '../../common/grocery-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { Ingredient } from '../../common/ingredient';
+import { MealListItem } from '../../common/meal-list-item';
+import { GroceryListStatusComponent } from '../grocery-list-status/grocery-list-status.component';
 
 @Component({
   selector: 'app-recipe-details',
@@ -14,6 +16,8 @@ import { Ingredient } from '../../common/ingredient';
 export class RecipeDetailsComponent implements OnInit {
   recipe!: Recipe;
   ingredient!: Ingredient;
+  mealListItem: any;
+  newId = 0;
 
   constructor(
     private recipeService: RecipeService,
@@ -36,8 +40,7 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   addToList() {
-    console.log(`Adding to cart: ${this.recipe.title}`)
-    const theGroceryListItem = new GroceryListItem(this.ingredient);
-    this.groceryListService.addIngredientToList(theGroceryListItem);
+    this.groceryListService.updateMealList(this.recipe);
+
   }
 }

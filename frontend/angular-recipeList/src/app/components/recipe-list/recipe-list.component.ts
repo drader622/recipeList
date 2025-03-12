@@ -7,6 +7,7 @@ import { IngredientService } from '../../services/ingredient/ingredient.service'
 import { GroceryListItem } from '../../common/grocery-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { MealListItem } from '../../common/meal-list-item';
+import { GroceryListStatusComponent } from '../grocery-list-status/grocery-list-status.component';
 
 @Component({
   selector: 'app-recipe-list',
@@ -14,6 +15,7 @@ import { MealListItem } from '../../common/meal-list-item';
   styleUrl: './recipe-list.component.css',
 })
 export class RecipeListComponent implements OnInit {
+
   recipes: Recipe[] = [];
   ingredients: Ingredient[] = [];
   currentCategoryId: number = 1;
@@ -25,6 +27,7 @@ export class RecipeListComponent implements OnInit {
   previousKeyword: string = '';
   mealListItem: any;
   newId = 0;
+  totalMeals: number = 0;
 
   constructor(
     private recipeService: RecipeService,
@@ -110,40 +113,18 @@ export class RecipeListComponent implements OnInit {
   }
 
   addToList(theRecipe: Recipe) {
-    const recipeId: number = theRecipe.id;
-    let mealList: MealListItem[] = [];
-    this.mealListItem = undefined;
-    this.groceryListService.getMealList().subscribe((data) => {
-      mealList = data;
+    this.groceryListService.updateMealList(theRecipe);
 
-      this.mealListItem = mealList.find((tempMealItem) => {
-        return Number(tempMealItem.recipeId) == theRecipe.id;
-      });
 
-      if (this.mealListItem) {
-        this.mealListItem.quantity++;
-        this.groceryListService.addMealToList(this.mealListItem).subscribe();
-        console.log(`increased quantity`);
-      } else {
-        const newMeal = new MealListItem(
-          this.newId,
-          theRecipe.id,
-          theRecipe.title,
-          1
-        );
-        this.newId++;
-        this.groceryListService.addMealToList(newMeal).subscribe();
-      }
-    });
-    this.ingredientService
-      .getIngredientsForGrocery(recipeId)
-      .subscribe((data) => {
-        data._embedded.recipeIngredients.forEach((item) => {
-          this.ingredients.push(item);
+    // this.ingredientService
+    //   .getIngredientsForGrocery(recipeId)
+    //   .subscribe((data) => {
+    //     data._embedded.recipeIngredients.forEach((item) => {
+    //       this.ingredients.push(item);
 
-          const Ingredient = new GroceryListItem(item);
-          this.groceryListService.addIngredientToList(Ingredient);
-        });
-      });
+    //       const Ingredient = new GroceryListItem(item);
+    //       this.groceryListService.addIngredientToList(Ingredient);
+    //     });
+    //   });
   }
 }

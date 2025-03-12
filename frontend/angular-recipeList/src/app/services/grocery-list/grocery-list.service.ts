@@ -4,6 +4,7 @@ import { MealListItem } from '../../common/meal-list-item';
 import { map, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Recipe } from '../../common/recipe';
+import { GroceryListStatusComponent } from '../../components/grocery-list-status/grocery-list-status.component';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,14 @@ export class GroceryListService {
   private baseUrl = 'http://localhost:8080/api/meal-list';
   groceryListItems: GroceryListItem[] = [];
   mealList: MealListItem[] = [];
+  mealListItem: any;
   newId = 0;
 
   totalQuantity: Subject<number> = new Subject<number>();
   newMeal: MealListItem | undefined;
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+  ) {}
 
   getMealList(): Observable<MealListItem[]> {
     const mealListUrl = `${this.baseUrl}`;
@@ -69,6 +73,40 @@ export class GroceryListService {
 
     // compute cart total price and total quantity
     // this.computeListTotal();
+  }
+
+  updateMealList(newRecipe: Recipe) {
+    let statusComponent = GroceryListStatusComponent;
+    const recipeId: number = newRecipe.id;
+    let mealList: MealListItem[] = [];
+    this.mealListItem = undefined;
+    let mealListQuantity = 0;
+    this.getMealList().subscribe((data) => {
+      mealList = data;
+
+      this.mealListItem = mealList.find((tempMealItem) => {
+        return Number(tempMealItem.recipeId) == newRecipe.id;
+      });
+
+      if (this.mealListItem) {
+        this.mealListItem.quantity++;
+        this.addMealToList(this.mealListItem).subscribe();
+        this.getMealList().subscribe((data) => {
+          data.forEach((item) => (mealListQuantity += item.quantity));
+          statusComponent.prototype.toggleComponent();
+        });
+      } else {
+        const newMeal = new MealListItem(
+          this.newId,
+          newRecipe.id,
+          newRecipe.title,
+          1
+        );
+        this.newId++;
+        this.addMealToList(newMeal).subscribe();
+        statusComponent.prototype.toggleComponent();
+      }
+    });
   }
 
   computeListTotal() {

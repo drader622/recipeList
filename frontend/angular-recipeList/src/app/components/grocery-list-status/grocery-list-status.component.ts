@@ -8,18 +8,23 @@ import { GroceryListService } from '../../services/grocery-list/grocery-list.ser
 })
 export class GroceryListStatusComponent implements OnInit {
   totalQuantity: number = 0;
+  public static show: boolean = true;
+  public showComponent: boolean = true;
+  static totalQuantity: number;
 
-  constructor(
-    private groceryListService: GroceryListService
-
-  ) {}
+  constructor(private groceryListService: GroceryListService) {}
 
   ngOnInit(): void {
+    this.showComponent = false;
     this.updateGroceryListStatus();
   }
   updateGroceryListStatus() {
+    this.showComponent = true;
     this.groceryListService.getMealList().subscribe((data) => {
-      this.totalQuantity = data.length;
-    })
+      data.forEach((item) => (this.totalQuantity += item.quantity));
+    });
+  }
+  toggleComponent() {
+    location.reload();
   }
 }
