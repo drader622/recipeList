@@ -22,4 +22,7 @@ public class MealList {
 
     @Column(name = "recipe_name")
     private String name;
+
+    @Column(name = "quantity")
+    private int quantity;
 }

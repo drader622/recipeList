@@ -6,6 +6,7 @@ import { Ingredient } from '../../common/ingredient';
 import { IngredientService } from '../../services/ingredient/ingredient.service';
 import { GroceryListItem } from '../../common/grocery-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
+import { MealListItem } from '../../common/meal-list-item';
 
 @Component({
   selector: 'app-recipe-list',
@@ -15,7 +16,6 @@ import { GroceryListService } from '../../services/grocery-list/grocery-list.ser
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [];
   ingredients: Ingredient[] = [];
-  groceryList: Ingredient[] = [];
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   searchMode: boolean = false;
@@ -23,6 +23,8 @@ export class RecipeListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
   previousKeyword: string = '';
+  mealListItem: any;
+  newId = 0;
 
   constructor(
     private recipeService: RecipeService,
@@ -109,7 +111,30 @@ export class RecipeListComponent implements OnInit {
 
   addToList(theRecipe: Recipe) {
     const recipeId: number = theRecipe.id;
-    this.groceryListService.addMealToList(theRecipe).subscribe(data => console.log(data));
+    let mealList: MealListItem[] = [];
+    this.mealListItem = undefined;
+    this.groceryListService.getMealList().subscribe((data) => {
+      mealList = data;
+
+      this.mealListItem = mealList.find((tempMealItem) => {
+        return Number(tempMealItem.recipeId) == theRecipe.id;
+      });
+
+      if (this.mealListItem) {
+        this.mealListItem.quantity++;
+        this.groceryListService.addMealToList(this.mealListItem).subscribe();
+        console.log(`increased quantity`);
+      } else {
+        const newMeal = new MealListItem(
+          this.newId,
+          theRecipe.id,
+          theRecipe.title,
+          1
+        );
+        this.newId++;
+        this.groceryListService.addMealToList(newMeal).subscribe();
+      }
+    });
     this.ingredientService
       .getIngredientsForGrocery(recipeId)
       .subscribe((data) => {

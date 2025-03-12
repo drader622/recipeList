@@ -12,9 +12,10 @@ export class GroceryListService {
   private baseUrl = 'http://localhost:8080/api/meal-list';
   groceryListItems: GroceryListItem[] = [];
   mealList: MealListItem[] = [];
-  newId!: 0;
+  newId = 0;
 
   totalQuantity: Subject<number> = new Subject<number>();
+  newMeal: MealListItem | undefined;
   constructor(private httpClient: HttpClient) {}
 
   getMealList(): Observable<MealListItem[]> {
@@ -23,13 +24,9 @@ export class GroceryListService {
     return this.getMeals(mealListUrl);
   }
 
-  addMealToList(meal: Recipe): Observable<any> {
-    const tempUrl = `${this.baseUrl}`;
-    const newMeal = new MealListItem(this.newId, meal.id, meal.title);
-    this.mealList.push(newMeal);
-    console.log(this.mealList);
-    this.newId++;
-    return this.httpClient.post<MealListItem>(this.baseUrl, newMeal);
+  addMealToList(meal: MealListItem): Observable<any> {
+    const mealUrl = `${this.baseUrl}`;
+    return this.httpClient.post<MealListItem>(this.baseUrl, meal);
   }
 
   addIngredientToList(theGroceryListItem: GroceryListItem) {

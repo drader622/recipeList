@@ -62,7 +62,7 @@ export class RecipeService {
   ): Observable<GetResponseRecipes> {
     //need to build URL based on keyword, page, and size
     const searchUrl =
-      `${this.baseUrl}/search/findByTitleContaining?=${theKeyword}` +
+      `${this.baseUrl}/search/findByTitleContaining?title=${theKeyword}` +
       `&page=${thePage}&size=${thePageSize}`;
 
     return this.httpClient.get<GetResponseRecipes>(searchUrl);
