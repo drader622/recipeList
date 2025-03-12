@@ -1,7 +1,23 @@
-<h3>Meal List</h3>
-<div class="" *ngFor="let meal of mealList">
-    <div>
-        {{ meal.name }} {{ meal.quantity }}
+<section class="main-content">
+  <h3>Meal List</h3>
+  <div class="" *ngFor="let meal of mealList">
+    <div class="menuItem">
+      <div class="name" *ngIf="meal.name.length < 32">{{ meal.name }}</div>
+      <div class="name" *ngIf="meal.name.length >= 32">
+        {{ meal.name.substring(0, 32) }}..
+      </div>
+      <div class="quantity">
+        <i class="fa-solid fa-plus" (click)="increaseQuantity(meal)"></i>
+        {{ meal.quantity }}
+        <i class="fa-solid fa-minus" (click)="decreaseQuantity(meal)"></i>
+      </div>
+      <button
+        (click)="deleteItem(meal.id)"
+        class="btn btn-primary btn-sm delete"
+      >
+        Delete
+      </button>
+      <button class="btn btn-primary btn-sm view">View Ingredients</button>
     </div>
-
-</div>
+  </div>
+</section>

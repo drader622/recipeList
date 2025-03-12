@@ -20,4 +20,19 @@ export class MealListComponent implements OnInit {
       data.forEach((item) => this.mealList.push(item));
     });
   }
+
+  deleteItem(id: number) {
+    this.groceryListService.deleteItemFromList(id).subscribe();
+    location.reload();
+  }
+
+  increaseQuantity(meal: MealListItem) {
+    this.groceryListService.increaseQuantity(meal).subscribe();
+    location.reload();
+  }
+
+  decreaseQuantity(meal: MealListItem) {
+    this.groceryListService.decreaseQuantity(meal).subscribe();
+    location.reload();
+  }
 }

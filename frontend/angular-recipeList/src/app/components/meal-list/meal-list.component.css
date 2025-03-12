@@ -1,0 +1,40 @@
+h3 {
+  width: 50%;
+  text-align: center;
+}
+.menuItem {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 1rem;
+  margin: 0.5rem 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+
+.name {
+  width: 50%;
+  font-size: 1.2rem;
+  text-overflow: ellipsis;
+}
+
+.name:hover {
+  color: #0d6efd;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.quantity {
+  font-size: 1.4rem;
+}
+
+i {
+  padding: 0.25rem;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #0d6efd;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+i:hover {
+  background-color: #0b5ed7;
+}

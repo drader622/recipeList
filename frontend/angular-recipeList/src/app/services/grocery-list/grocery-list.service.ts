@@ -29,7 +29,20 @@ export class GroceryListService {
   }
 
   addMealToList(meal: MealListItem): Observable<any> {
-    const mealUrl = `${this.baseUrl}`;
+    return this.httpClient.post<MealListItem>(this.baseUrl, meal);
+  }
+
+  deleteItemFromList(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrl}/${id}`)
+  }
+
+  increaseQuantity(meal: MealListItem) {
+    meal.quantity++;
+    return this.httpClient.post<MealListItem>(this.baseUrl, meal);
+  }
+
+  decreaseQuantity(meal: MealListItem) {
+    meal.quantity--;
     return this.httpClient.post<MealListItem>(this.baseUrl, meal);
   }
 
