@@ -1,7 +1,20 @@
 <h3>Ingredients</h3>
-<div class="ingredient-section" *ngFor="let tempIngredient of ingredients"> 
+<!-- <div class="ingredient-section" *ngFor="let tempIngredient of ingredients"> 
   <div>
     {{ tempIngredient.amount }} {{ tempIngredient.unit }}
     {{ tempIngredient.name }}
   </div>
-</div>
+</div> -->
+
+<table class="table">
+  <tr>
+    <th>Amount</th>
+    <th>Unit</th>
+    <th>Name</th>
+  </tr>
+  <tr class="ingredient-section" *ngFor="let tempIngredient of ingredients">
+    <td>{{ tempIngredient.amount }}</td>
+    <td>{{ tempIngredient.unit }}</td>
+    <td>{{ tempIngredient.name }}</td>
+  </tr>
+</table>

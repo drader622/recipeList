@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MealListItem } from '../../common/meal-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-meal-list',
@@ -9,9 +10,19 @@ import { GroceryListService } from '../../services/grocery-list/grocery-list.ser
 })
 export class MealListComponent implements OnInit {
   mealList: MealListItem[] = [];
-  constructor(private groceryListService: GroceryListService) {}
+  hiddenClass: string = 'hidden';
+  constructor(
+    private groceryListService: GroceryListService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    let component = document.getElementById('ingredientComponent');
+    component?.classList.add(this.hiddenClass);
+    let id = +this.route.snapshot.paramMap.get('id')!;
+    if (id > 0) {
+      this.showIngredients();
+    }
     this.listMealList();
   }
 
@@ -34,5 +45,10 @@ export class MealListComponent implements OnInit {
   decreaseQuantity(meal: MealListItem) {
     this.groceryListService.decreaseQuantity(meal).subscribe();
     location.reload();
+  }
+
+  showIngredients() {
+    let component = document.getElementById('ingredientComponent');
+    component?.classList.remove('hidden');
   }
 }

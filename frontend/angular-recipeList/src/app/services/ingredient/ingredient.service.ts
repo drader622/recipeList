@@ -18,7 +18,6 @@ export class IngredientService {
   }
 
   getIngredientList(theRecipeId: number): Ingredient[] {
-    console.log(`Recipe ID: ${theRecipeId}`);
     const searchURL = `${this.baseUrl}/search/findByRecipeId?id=${theRecipeId}`;
 
     this.ingredients = [];
@@ -31,12 +30,9 @@ export class IngredientService {
         )
       );
 
-    console.log(this.ingredients);
-
     return this.ingredients;
   }
   getIngredientsForGrocery(theRecipeId: number) {
-    console.log(`Recipe ID: ${theRecipeId}`);
     const searchURL = `${this.baseUrl}/search/findByRecipeId?id=${theRecipeId}`;
 
     this.ingredients = [];

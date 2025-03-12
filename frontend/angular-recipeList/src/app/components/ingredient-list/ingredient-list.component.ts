@@ -31,9 +31,9 @@ export class IngredientListComponent implements OnInit {
 
     this.ingredients = [];
 
-    this.ingredientService.getIngredient(theIngredientId).subscribe((data) => {
-      this.ingredient = data;
-    });
+    // this.ingredientService.getIngredient(theIngredientId).subscribe((data) => {
+    //   this.ingredient = data;
+    // });
 
     this.ingredients =
       this.ingredientService.getIngredientList(theIngredientId);

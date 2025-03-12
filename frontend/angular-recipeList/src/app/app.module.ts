@@ -18,6 +18,7 @@ import { GroceryListStatusComponent } from './components/grocery-list-status/gro
 import { MealListComponent } from './components/meal-list/meal-list.component';
 
 const routes: Routes = [
+  { path: 'meal-list/:id', component: MealListComponent },
   { path: 'meal-list', component: MealListComponent },
   { path: 'recipes/:id', component: RecipeDetailsComponent },
   { path: 'search/:keyword', component: RecipeListComponent },
