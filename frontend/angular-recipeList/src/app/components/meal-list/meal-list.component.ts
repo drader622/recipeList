@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class MealListComponent implements OnInit {
   mealList: MealListItem[] = [];
   hiddenClass: string = 'hidden';
+  showIngredientList: Boolean = false;
+
   constructor(
     private groceryListService: GroceryListService,
     private route: ActivatedRoute
@@ -48,7 +50,16 @@ export class MealListComponent implements OnInit {
   }
 
   showIngredients() {
+    this.showIngredientList = true;
     let component = document.getElementById('ingredientComponent');
+    // let closeButton = document.getElementById('closeBtn');
     component?.classList.remove('hidden');
+    // closeButton?.classList.remove('hidden');
+  }
+
+  closeIngredients() {
+    let component = document.getElementById('ingredientComponent');
+
+    component?.classList.add('hidden');
   }
 }

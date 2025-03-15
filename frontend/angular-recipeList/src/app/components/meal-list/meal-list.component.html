@@ -2,7 +2,7 @@
   <div class="side">
     <h3>Meal List</h3>
     <div class="" *ngFor="let meal of mealList">
-      <div class="menuItem">
+      <div class="menuItem" id="{{ meal.id }}">
         <a
           routerLink="/recipes/{{ meal.recipeId }}"
           class="name"
@@ -17,9 +17,9 @@
           {{ meal.name.substring(0, 32) }}..
         </a>
         <div class="quantity">
-          <i class="fa-solid fa-plus" (click)="increaseQuantity(meal)"></i>
-          {{ meal.quantity }}
           <i class="fa-solid fa-minus" (click)="decreaseQuantity(meal)"></i>
+          {{ meal.quantity }}
+          <i class="fa-solid fa-plus" (click)="increaseQuantity(meal)"></i>
         </div>
         <button
           (click)="deleteItem(meal.id)"
@@ -28,8 +28,8 @@
           Delete
         </button>
         <button
+
           (click)="showIngredients()"
-          routerLink="/meal-list/{{ meal.recipeId }}"
           class="btn btn-primary btn-sm view"
         >
           View Ingredients
@@ -42,6 +42,7 @@
     <app-ingredient-list
       id="ingredientComponent"
       class=""
+      *ngIf="showIngredientList"
     ></app-ingredient-list>
   </div>
 </section>

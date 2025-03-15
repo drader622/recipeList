@@ -32,13 +32,6 @@ export class IngredientService {
 
     return this.ingredients;
   }
-  getIngredientsForGrocery(theRecipeId: number) {
-    const searchURL = `${this.baseUrl}/search/findByRecipeId?id=${theRecipeId}`;
-
-    this.ingredients = [];
-
-    return this.httpClient.get<GetResponseIngredients>(searchURL)
-  }
 }
 
 interface GetResponseIngredients {

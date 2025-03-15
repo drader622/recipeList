@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Ingredient } from '../../common/ingredient';
 import { IngredientService } from '../../services/ingredient/ingredient.service';
 import { ActivatedRoute } from '@angular/router';
+import { RecipeService } from '../../services/recipe/recipe.service';
+import { Recipe } from '../../common/recipe';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -13,9 +15,11 @@ export class IngredientListComponent implements OnInit {
 
   ingredients: Ingredient[] = [];
   currentRecipeId: number = 1;
+  recipe!: Recipe;
 
   constructor(
     private ingredientService: IngredientService,
+    private recipeService: RecipeService,
     private route: ActivatedRoute
   ) {}
 
@@ -26,24 +30,26 @@ export class IngredientListComponent implements OnInit {
   }
 
   handleSearchIngredients() {
-      console.log('test')
-    const theIngredientId: number = +this.route.snapshot.paramMap.get('id')!;
+    let theRecipeId = 0;
+    if (this.route.snapshot.url[0].path == 'recipes') {
+      theRecipeId = +this.route.snapshot.paramMap.get('id')!;
+    } else {
+      console.log(this.route.snapshot.url);
+      theRecipeId = +this.route.snapshot.paramMap.get('id')!;
+    }
 
     this.ingredients = [];
 
-    // this.ingredientService.getIngredient(theIngredientId).subscribe((data) => {
-    //   this.ingredient = data;
-    // });
-
-    this.ingredients =
-      this.ingredientService.getIngredientList(theIngredientId);
+    if (theRecipeId != 0) {
+      this.ingredients = this.ingredientService.getIngredientList(theRecipeId);
+      this.recipeService.getRecipe(theRecipeId).subscribe((data) => {
+        this.recipe = data;
+      });
+    }
   }
 
-  // handleIngredientList() {
-  //       const theRecipeId: number =
-  //     +this.route.snapshot.paramMap.get('id')!;
-  //   console.log('test')
-    
-  //       this.ingredientService.getIngredientList(theRecipeId);
-  // }
+  closeIngredients() {
+    let component = document.getElementById('ingredientComponent');
+    component?.classList.add('hidden');
+  }
 }
