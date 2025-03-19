@@ -12,6 +12,7 @@ export class MealListComponent implements OnInit {
   mealList: MealListItem[] = [];
   hiddenClass: string = 'hidden';
   showIngredientList: Boolean = false;
+  showTotalIngredientList: Boolean = false;
 
   constructor(
     private groceryListService: GroceryListService,
@@ -51,15 +52,13 @@ export class MealListComponent implements OnInit {
 
   showIngredients() {
     this.showIngredientList = true;
-    let component = document.getElementById('ingredientComponent');
-    // let closeButton = document.getElementById('closeBtn');
-    component?.classList.remove('hidden');
-    // closeButton?.classList.remove('hidden');
+  }
+
+   showTotalIngredients () {
+    this.showTotalIngredientList = true;
   }
 
   closeIngredients() {
-    let component = document.getElementById('ingredientComponent');
-
-    component?.classList.add('hidden');
+    this.showIngredientList = false;
   }
 }

@@ -114,17 +114,5 @@ export class RecipeListComponent implements OnInit {
 
   addToList(theRecipe: Recipe) {
     this.groceryListService.updateMealList(theRecipe);
-
-
-    // this.ingredientService
-    //   .getIngredientsForGrocery(recipeId)
-    //   .subscribe((data) => {
-    //     data._embedded.recipeIngredients.forEach((item) => {
-    //       this.ingredients.push(item);
-
-    //       const Ingredient = new GroceryListItem(item);
-    //       this.groceryListService.addIngredientToList(Ingredient);
-    //     });
-    //   });
   }
 }

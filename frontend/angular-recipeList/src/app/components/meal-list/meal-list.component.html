@@ -1,40 +1,47 @@
 <section class="main-content">
   <div class="side">
     <h3>Meal List</h3>
-    <div class="" *ngFor="let meal of mealList">
-      <div class="menuItem" id="{{ meal.id }}">
-        <a
-          routerLink="/recipes/{{ meal.recipeId }}"
-          class="name"
-          *ngIf="meal.name.length < 32"
-          >{{ meal.name }}</a
-        >
-        <a
-          routerLink="/recipes/{{ meal.recipeId }}"
-          class="name"
-          *ngIf="meal.name.length >= 32"
-        >
-          {{ meal.name.substring(0, 32) }}..
-        </a>
-        <div class="quantity">
-          <i class="fa-solid fa-minus" (click)="decreaseQuantity(meal)"></i>
-          {{ meal.quantity }}
-          <i class="fa-solid fa-plus" (click)="increaseQuantity(meal)"></i>
+    <div class="mealList">
+      <div class="" *ngFor="let meal of mealList">
+        <div class="menuItem" id="{{ meal.id }}">
+          <a
+            routerLink="/recipes/{{ meal.recipeId }}"
+            class="name"
+            *ngIf="meal.name.length < 32"
+            >{{ meal.name }}</a
+          >
+          <a
+            routerLink="/recipes/{{ meal.recipeId }}"
+            class="name"
+            *ngIf="meal.name.length >= 32"
+          >
+            {{ meal.name.substring(0, 32) }}..
+          </a>
+          <div class="quantity">
+            <i class="fa-solid fa-minus" (click)="decreaseQuantity(meal)"></i>
+            {{ meal.quantity }}
+            <i class="fa-solid fa-plus" (click)="increaseQuantity(meal)"></i>
+          </div>
+          <button
+            (click)="deleteItem(meal.id)"
+            class="btn btn-primary btn-sm delete"
+          >
+            Delete
+          </button>
+          <button
+            routerLink="/meal-list/{{ meal.recipeId }}"
+            (click)="showIngredients()"
+            class="btn btn-primary btn-sm view"
+          >
+            View Ingredients
+          </button>
         </div>
-        <button
-          (click)="deleteItem(meal.id)"
-          class="btn btn-primary btn-sm delete"
-        >
-          Delete
-        </button>
-        <button
-
-          (click)="showIngredients()"
-          class="btn btn-primary btn-sm view"
-        >
-          View Ingredients
-        </button>
       </div>
+    </div>
+
+    <div class="checkoutBtns">
+      <button class="btn btn-primary">Purchase Meals</button>
+      <button class="btn btn-primary" (click)="showTotalIngredients()" >View total ingredient list</button>
     </div>
   </div>
 
@@ -44,5 +51,6 @@
       class=""
       *ngIf="showIngredientList"
     ></app-ingredient-list>
+    <app-total-ingredient-list class="" *ngIf="showTotalIngredientList"></app-total-ingredient-list>
   </div>
 </section>

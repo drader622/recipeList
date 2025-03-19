@@ -5,6 +5,9 @@ import { map, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Recipe } from '../../common/recipe';
 import { GroceryListStatusComponent } from '../../components/grocery-list-status/grocery-list-status.component';
+import { RecipeService } from '../recipe/recipe.service';
+import { IngredientService } from '../ingredient/ingredient.service';
+import { Ingredient } from '../../common/ingredient';
 
 @Injectable({
   providedIn: 'root',
@@ -13,13 +16,23 @@ export class GroceryListService {
   private baseUrl = 'http://localhost:8080/api/meal-list';
   groceryListItems: GroceryListItem[] = [];
   mealList: MealListItem[] = [];
+  ingredients: Ingredient[] = [];
   mealListItem: any;
   newId = 0;
+
+  // private dataUpdatedSource = new Subject<void>();
+  // dataUpdated$ = this.dataUpdatedSource.asObservable();
+
+  // notifyDataUpdated() {
+  //   this.dataUpdatedSource.next();
+  // }
 
   totalQuantity: Subject<number> = new Subject<number>();
   newMeal: MealListItem | undefined;
   constructor(
     private httpClient: HttpClient,
+    private recipeService: RecipeService,
+    private ingredientService: IngredientService
   ) {}
 
   getMealList(): Observable<MealListItem[]> {
@@ -33,7 +46,7 @@ export class GroceryListService {
   }
 
   deleteItemFromList(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrl}/${id}`)
+    return this.httpClient.delete(`${this.baseUrl}/${id}`);
   }
 
   increaseQuantity(meal: MealListItem) {
@@ -44,6 +57,19 @@ export class GroceryListService {
   decreaseQuantity(meal: MealListItem) {
     meal.quantity--;
     return this.httpClient.post<MealListItem>(this.baseUrl, meal);
+  }
+
+  addIngredientsToTotal(meal: MealListItem) {
+    let url = `http://localhost:8080/api/recipeIngredients/search/findByRecipeId?id=${meal.recipeId}`;
+    this.httpClient.get<GetResponseIngredients>(url).subscribe((val) =>
+      val._embedded.recipeIngredients.forEach((item) => {
+        this.ingredients.push(item);
+        console.log(item);
+      })
+    );
+
+    // this.ingredients = this.ingredientService.getIngredientList(meal.recipeId);
+    console.log(this.ingredients);
   }
 
   addIngredientToList(theGroceryListItem: GroceryListItem) {
@@ -104,8 +130,12 @@ export class GroceryListService {
       if (this.mealListItem) {
         this.mealListItem.quantity++;
         this.addMealToList(this.mealListItem).subscribe();
+        // this.addIngredientsToTotal(this.mealListItem);
+
+        // JUST CHANGE THE ELEMENT TO EQUAL QUANTITY + 1. THEN TAKE DATA FROM MEAL PAGE NEEDED WHEN ADDING INGREDIENTS
         this.getMealList().subscribe((data) => {
           data.forEach((item) => (mealListQuantity += item.quantity));
+          console.log(mealListQuantity);
           statusComponent.prototype.toggleComponent();
         });
       } else {
@@ -117,6 +147,7 @@ export class GroceryListService {
         );
         this.newId++;
         this.addMealToList(newMeal).subscribe();
+        // this.addIngredientsToTotal(newMeal);
         statusComponent.prototype.toggleComponent();
       }
     });
@@ -148,6 +179,11 @@ export class GroceryListService {
   }
 
   private getMeals(mealListUrl: string): Observable<MealListItem[]> {
+    // console.log(`mealList: ${mealListUrl}`)
+    // console.log('success: ' +
+    //   this.httpClient.get<GetResponseMealList>(mealListUrl).pipe(map((response) => response._embedded.mealList.forEach(item => console.log(item)))
+        
+    // );
     return this.httpClient
       .get<GetResponseMealList>(mealListUrl)
       .pipe(map((response) => response._embedded.mealList));
@@ -174,5 +210,11 @@ function convertUnit(unit: String, amount: number) {
 interface GetResponseMealList {
   _embedded: {
     mealList: MealListItem[];
+  };
+}
+
+interface GetResponseIngredients {
+  _embedded: {
+    recipeIngredients: Ingredient[];
   };
 }

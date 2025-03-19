@@ -51,3 +51,18 @@ i {
 i:hover {
   background-color: #0b5ed7;
 }
+
+.mealList {
+  min-height: 25rem;
+  max-height: 25rem;
+  overflow: auto;
+}
+
+.checkoutBtns {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.checkoutBtns button {
+  margin: .5rem;
+}

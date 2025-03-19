@@ -34,8 +34,9 @@ export class IngredientListComponent implements OnInit {
     if (this.route.snapshot.url[0].path == 'recipes') {
       theRecipeId = +this.route.snapshot.paramMap.get('id')!;
     } else {
-      console.log(this.route.snapshot.url);
       theRecipeId = +this.route.snapshot.paramMap.get('id')!;
+      let btn = document.getElementById('closeBtn');
+      btn?.classList.remove('hidden');
     }
 
     this.ingredients = [];

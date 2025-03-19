@@ -7,6 +7,7 @@ import { GroceryListService } from '../../services/grocery-list/grocery-list.ser
 import { Ingredient } from '../../common/ingredient';
 import { MealListItem } from '../../common/meal-list-item';
 import { GroceryListStatusComponent } from '../grocery-list-status/grocery-list-status.component';
+import { IngredientService } from '../../services/ingredient/ingredient.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -17,11 +18,13 @@ export class RecipeDetailsComponent implements OnInit {
   recipe!: Recipe;
   ingredient!: Ingredient;
   mealListItem: any;
+  ingredients: Ingredient[] = [];
   newId = 0;
 
   constructor(
     private recipeService: RecipeService,
     private groceryListService: GroceryListService,
+    private ingredientService: IngredientService,
     private route: ActivatedRoute
   ) {}
 
@@ -41,6 +44,5 @@ export class RecipeDetailsComponent implements OnInit {
 
   addToList() {
     this.groceryListService.updateMealList(this.recipe);
-
   }
 }

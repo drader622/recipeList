@@ -25,6 +25,7 @@ export class GroceryListStatusComponent implements OnInit {
     });
   }
   toggleComponent() {
-    location.reload();
+    // location.reload();
+    this.updateGroceryListStatus();
   }
 }
