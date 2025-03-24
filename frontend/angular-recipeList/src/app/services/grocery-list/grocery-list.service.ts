@@ -76,7 +76,7 @@ export class GroceryListService {
     if (this.groceryListItems.length > 0) {
       // find the item in the cart based on item id
       existingListItem = this.groceryListItems.find(
-        (tempGroceryItem) => tempGroceryItem.id === theGroceryListItem.id
+        (tempGroceryItem) => tempGroceryItem.name === theGroceryListItem.name
       )!;
 
       // check if we found it
@@ -100,7 +100,7 @@ export class GroceryListService {
       // increment the quantity
       let index = -1;
       this.groceryListItems.forEach((item, i) => {
-        if (theGroceryListItem.id == item.id) {
+        if (theGroceryListItem.name == item.name) {
           index = i;
         }
       });
