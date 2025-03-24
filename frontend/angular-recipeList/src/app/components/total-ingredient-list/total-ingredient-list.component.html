@@ -1,0 +1,17 @@
+<div class="top">
+  <h3 class="title">Total Ingredients For List</h3>
+  <button (click)="closeIngredients()" id="closeBtn" class="close">X</button>
+</div>
+
+<table class="table">
+  <tr>
+    <th>Amount</th>
+    <th>Unit</th>
+    <th>Ingredient Name</th>
+  </tr>
+  <tr class="ingredient-section" *ngFor="let tempIngredient of ingredients">
+    <td>{{ tempIngredient.amount }}</td>
+    <td>{{ tempIngredient.unit }}</td>
+    <td>{{ tempIngredient.name }}</td>
+  </tr>
+</table>

@@ -1,0 +1,30 @@
+h3,
+.table {
+  text-align: center;
+  align-self: center;
+  margin: 0;
+}
+td {
+  border: 1px solid black;
+}
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.title,
+.close {
+  width: 100%;
+}
+.close {
+  width: 2rem;
+  height: 2rem;
+  color: white;
+  margin-right: 1rem;
+  background-color: red;
+  border-radius: 0.5rem;
+}
+
+.close:hover {
+  background-color: maroon;
+}

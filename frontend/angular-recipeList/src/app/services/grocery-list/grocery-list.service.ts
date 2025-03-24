@@ -181,20 +181,10 @@ export class GroceryListService {
 
     // publish the new values .. all subscribers will receive the new data
     this.totalQuantity.next(totalQuantityValue);
-
-    // log cart data for debugging purposes
-    // this.logGroceryListData(totalQuantityValue);
   }
-  logGroceryListData(totalQuantityValue: number) {
-    console.log(`Contents of the cart`);
-    for (let tempGroceryItem of this.groceryListItems) {
-      console.log(
-        `name: ${tempGroceryItem.name}, amount: ${tempGroceryItem.amount} oz`
-      );
-    }
 
-    console.log(`totalQuantity: ${totalQuantityValue}`);
-    console.log(`---`);
+  getTotalIngredients() {
+    return this.groceryListItems;
   }
 
   private getMeals(mealListUrl: string): Observable<MealListItem[]> {

@@ -54,11 +54,9 @@ export class MealListComponent implements OnInit {
     this.showIngredientList = true;
   }
 
-   showTotalIngredients () {
+  showTotalIngredients() {
     this.showTotalIngredientList = true;
-  }
-
-  closeIngredients() {
-    this.showIngredientList = false;
+    let component = document.getElementById('ingredientComponent');
+    component?.classList.remove('hidden');
   }
 }

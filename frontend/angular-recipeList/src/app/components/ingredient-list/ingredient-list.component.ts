@@ -49,8 +49,5 @@ export class IngredientListComponent implements OnInit {
     }
   }
 
-  closeIngredients() {
-    let component = document.getElementById('ingredientComponent');
-    component?.classList.add('hidden');
-  }
+
 }

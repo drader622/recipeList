@@ -16,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IngredientListComponent } from './components/ingredient-list/ingredient-list.component';
 import { GroceryListStatusComponent } from './components/grocery-list-status/grocery-list-status.component';
 import { MealListComponent } from './components/meal-list/meal-list.component';
-import { TotalIngredientListComponent } from './components/total-ingredient-list/total-ingredient-list/total-ingredient-list.component';
+import { TotalIngredientListComponent } from './components/total-ingredient-list/total-ingredient-list.component';
 
 const routes: Routes = [
   { path: 'meal-list/:id', component: MealListComponent },
