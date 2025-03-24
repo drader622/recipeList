@@ -9,11 +9,11 @@ yarn-error.log*
 node_modules/
 
 # Distribution / build results
-dist/
-build/
+/dist/
+/build/
 
 # Caches
-.angular/cache.eslintcache
+.angular/cache/
 .prettiercache
 
 #IDE and OS files

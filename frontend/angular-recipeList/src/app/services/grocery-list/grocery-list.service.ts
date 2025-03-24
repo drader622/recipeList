@@ -64,12 +64,9 @@ export class GroceryListService {
     this.httpClient.get<GetResponseIngredients>(url).subscribe((val) =>
       val._embedded.recipeIngredients.forEach((item) => {
         this.ingredients.push(item);
-        console.log(item);
+        this.addIngredientToList(item);
       })
     );
-
-    // this.ingredients = this.ingredientService.getIngredientList(meal.recipeId);
-    console.log(this.ingredients);
   }
 
   addIngredientToList(theGroceryListItem: GroceryListItem) {
@@ -87,7 +84,7 @@ export class GroceryListService {
     }
 
     // convert to ounces
-    console.log(theGroceryListItem.unit);
+    // console.log(theGroceryListItem.unit);
     if (
       theGroceryListItem.unit != 'oz' &&
       theGroceryListItem.unit != 'units' &&
@@ -101,12 +98,25 @@ export class GroceryListService {
 
     if (alreadyExistsInList) {
       // increment the quantity
-      existingListItem.amount += theGroceryListItem.amount;
+      let index = -1;
+      this.groceryListItems.forEach((item, i) => {
+        if (theGroceryListItem.id == item.id) {
+          index = i;
+        }
+      });
+      theGroceryListItem.amount =
+        theGroceryListItem.amount + existingListItem.amount;
+
+      this.groceryListItems[index].amount = theGroceryListItem.amount;
+      // this.groceryListItems.push(theGroceryListItem);
+      console.log(
+        `New Amount for: ${theGroceryListItem.name} - ${theGroceryListItem.amount} ${theGroceryListItem.unit}`
+      );
     } else {
       // just add the item to the array
       this.groceryListItems.push(theGroceryListItem);
-      this.groceryListItems.forEach((item) =>
-        console.log(`Item: ${item.name}`)
+      console.log(
+        `Added Item: ${theGroceryListItem.name} ${theGroceryListItem.amount} ${theGroceryListItem.unit}`
       );
     }
 
@@ -130,14 +140,16 @@ export class GroceryListService {
       if (this.mealListItem) {
         this.mealListItem.quantity++;
         this.addMealToList(this.mealListItem).subscribe();
-        // this.addIngredientsToTotal(this.mealListItem);
 
         // JUST CHANGE THE ELEMENT TO EQUAL QUANTITY + 1. THEN TAKE DATA FROM MEAL PAGE NEEDED WHEN ADDING INGREDIENTS
-        this.getMealList().subscribe((data) => {
-          data.forEach((item) => (mealListQuantity += item.quantity));
-          console.log(mealListQuantity);
-          statusComponent.prototype.toggleComponent();
-        });
+        let mealListStatusComp = document.getElementById('quantity');
+        let mealListQuantity = mealListStatusComp?.innerText;
+        let newQuantity = Number(mealListQuantity) + 1;
+        if (mealListStatusComp)
+          mealListStatusComp.innerHTML = newQuantity.toString();
+        this.addIngredientsToTotal(this.mealListItem);
+        this.computeListTotal();
+        console.log('---');
       } else {
         const newMeal = new MealListItem(
           this.newId,
@@ -147,8 +159,15 @@ export class GroceryListService {
         );
         this.newId++;
         this.addMealToList(newMeal).subscribe();
-        // this.addIngredientsToTotal(newMeal);
-        statusComponent.prototype.toggleComponent();
+
+        // CHANGE STATUS COMP TEXT && UPDATE INGREDIENTS
+        let mealListStatusComp = document.getElementById('quantity');
+        let mealListQuantity = mealListStatusComp?.innerText;
+        let newQuantity = Number(mealListQuantity) + 1;
+        if (mealListStatusComp)
+          mealListStatusComp.innerHTML = newQuantity.toString();
+        this.addIngredientsToTotal(newMeal);
+        console.log('---');
       }
     });
   }
@@ -179,11 +198,6 @@ export class GroceryListService {
   }
 
   private getMeals(mealListUrl: string): Observable<MealListItem[]> {
-    // console.log(`mealList: ${mealListUrl}`)
-    // console.log('success: ' +
-    //   this.httpClient.get<GetResponseMealList>(mealListUrl).pipe(map((response) => response._embedded.mealList.forEach(item => console.log(item)))
-        
-    // );
     return this.httpClient
       .get<GetResponseMealList>(mealListUrl)
       .pipe(map((response) => response._embedded.mealList));

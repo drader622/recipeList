@@ -24,8 +24,4 @@ export class GroceryListStatusComponent implements OnInit {
       data.forEach((item) => (this.totalQuantity += item.quantity));
     });
   }
-  toggleComponent() {
-    // location.reload();
-    this.updateGroceryListStatus();
-  }
 }
