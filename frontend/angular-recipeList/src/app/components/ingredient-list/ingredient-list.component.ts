@@ -16,6 +16,7 @@ export class IngredientListComponent implements OnInit {
   ingredients: Ingredient[] = [];
   currentRecipeId: number = 1;
   recipe!: Recipe;
+  mealListPage: boolean = false;
 
   constructor(
     private ingredientService: IngredientService,
@@ -35,8 +36,7 @@ export class IngredientListComponent implements OnInit {
       theRecipeId = +this.route.snapshot.paramMap.get('id')!;
     } else {
       theRecipeId = +this.route.snapshot.paramMap.get('id')!;
-      let btn = document.getElementById('closeBtn');
-      btn?.classList.remove('hidden');
+      this.mealListPage = true;
     }
 
     this.ingredients = [];
@@ -48,6 +48,4 @@ export class IngredientListComponent implements OnInit {
       });
     }
   }
-
-
 }

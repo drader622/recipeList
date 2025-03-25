@@ -1,17 +1,21 @@
-<div class="top">
-  <h3 class="title">{{ recipe.title }}</h3>
-  <button routerLink="/meal-list/" id="closeBtn" class="close hidden">X</button>
-</div>
+<div class="container" *ngIf="recipe">
+  <div class="top">
+    <h3 class="title">{{ recipe.title }}</h3>
+    <button routerLink="/meal-list/" id="closeBtn" class="close" *ngIf="mealListPage">
+      X
+    </button>
+  </div>
 
-<table class="table">
-  <tr>
-    <th>Amount</th>
-    <th>Unit</th>
-    <th>Ingredient Name</th>
-  </tr>
-  <tr class="ingredient-section" *ngFor="let tempIngredient of ingredients">
-    <td>{{ tempIngredient.amount }}</td>
-    <td>{{ tempIngredient.unit }}</td>
-    <td>{{ tempIngredient.name }}</td>
-  </tr>
-</table>
+  <table class="table">
+    <tr>
+      <th>Amount</th>
+      <th>Unit</th>
+      <th>Ingredient Name</th>
+    </tr>
+    <tr class="ingredient-section" *ngFor="let tempIngredient of ingredients">
+      <td>{{ tempIngredient.amount }}</td>
+      <td>{{ tempIngredient.unit }}</td>
+      <td>{{ tempIngredient.name }}</td>
+    </tr>
+  </table>
+</div>

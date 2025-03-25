@@ -75,6 +75,7 @@ export class MealListComponent implements OnInit {
 
   showIngredients() {
     this.showIngredientList = true;
+    document.getElementById('closeBtn')?.classList.remove('hidden');
   }
 
   showTotalIngredients() {
