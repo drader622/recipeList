@@ -1,0 +1,22 @@
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.table {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header {
+    border: 1px solid black;
+}
+
+.totalLbl {
+    text-align: right;
+}
+
+button {
+    margin: 2rem 0;
+}
