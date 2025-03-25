@@ -74,13 +74,13 @@ export class MealListComponent implements OnInit {
   }
 
   showIngredients() {
+    this.showTotalIngredientList = false;
     this.showIngredientList = true;
     document.getElementById('closeBtn')?.classList.remove('hidden');
   }
 
   showTotalIngredients() {
+    this.showIngredientList = false;
     this.showTotalIngredientList = true;
-    let component = document.getElementById('ingredientComponent');
-    component?.classList.remove('hidden');
   }
 }

@@ -25,5 +25,6 @@ export class TotalIngredientListComponent implements OnInit {
   closeIngredients() {
     let component = document.getElementById('ingredientComponent');
     component?.classList.add('hidden');
+    // location.reload();
   }
 }

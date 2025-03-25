@@ -21,7 +21,7 @@ export class IngredientListComponent implements OnInit {
   constructor(
     private ingredientService: IngredientService,
     private recipeService: RecipeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {

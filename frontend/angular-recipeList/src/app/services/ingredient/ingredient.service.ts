@@ -22,13 +22,13 @@ export class IngredientService {
 
     this.ingredients = [];
 
-    this.httpClient
-      .get<GetResponseIngredients>(searchURL)
-      .subscribe((val) =>
-        val._embedded.recipeIngredients.forEach((item) =>
-          this.ingredients.push(item)
-        )
-      );
+    this.httpClient.get<GetResponseIngredients>(searchURL).subscribe((val) =>
+      val._embedded.recipeIngredients.forEach((item) => {
+        if (!JSON.stringify(this.ingredients).includes(JSON.stringify(item))) {
+          this.ingredients.push(item);
+        }
+      })
+    );
 
     return this.ingredients;
   }
