@@ -68,7 +68,7 @@ i:hover {
 }
 
 .ingredients {
-  min-height: 700px;
-  max-height: 700px;
+  min-height: 630px;
+  max-height: 630px;
   overflow: auto;
 }

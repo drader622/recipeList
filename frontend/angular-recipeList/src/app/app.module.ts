@@ -17,8 +17,10 @@ import { IngredientListComponent } from './components/ingredient-list/ingredient
 import { GroceryListStatusComponent } from './components/grocery-list-status/grocery-list-status.component';
 import { MealListComponent } from './components/meal-list/meal-list.component';
 import { TotalIngredientListComponent } from './components/total-ingredient-list/total-ingredient-list.component';
+import { PurchaseDetailsComponent } from './components/purchase-details/purchase-details.component';
 
 const routes: Routes = [
+  { path: 'purchase-details', component: PurchaseDetailsComponent},
   { path: 'meal-list/:id', component: MealListComponent },
   { path: 'meal-list', component: MealListComponent },
   { path: 'recipes/:id', component: RecipeDetailsComponent },
@@ -41,6 +43,7 @@ const routes: Routes = [
     GroceryListStatusComponent,
     MealListComponent,
     TotalIngredientListComponent,
+    PurchaseDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
