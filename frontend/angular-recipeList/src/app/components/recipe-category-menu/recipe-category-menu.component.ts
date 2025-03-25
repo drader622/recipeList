@@ -17,7 +17,7 @@ export class RecipeCategoryMenuComponent {
   }
   listRecipeCategories() {
     this.recipeServices.getRecipeCategories().subscribe((data) => {
-      console.log('Recipe Categories=' + JSON.stringify(data));
+      // console.log('Recipe Categories=' + JSON.stringify(data));
       this.recipeCategories = data;
     });
   }

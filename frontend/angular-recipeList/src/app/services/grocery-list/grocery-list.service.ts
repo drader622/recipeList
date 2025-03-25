@@ -83,8 +83,6 @@ export class GroceryListService {
       alreadyExistsInList = existingListItem != undefined;
     }
 
-    // convert to ounces
-    // console.log(theGroceryListItem.unit);
     if (
       theGroceryListItem.unit != 'oz' &&
       theGroceryListItem.unit != 'units' &&
@@ -108,20 +106,10 @@ export class GroceryListService {
         theGroceryListItem.amount + existingListItem.amount;
 
       this.groceryListItems[index].amount = theGroceryListItem.amount;
-      // this.groceryListItems.push(theGroceryListItem);
-      console.log(
-        `New Amount for: ${theGroceryListItem.name} - ${theGroceryListItem.amount} ${theGroceryListItem.unit}`
-      );
     } else {
       // just add the item to the array
       this.groceryListItems.push(theGroceryListItem);
-      console.log(
-        `Added Item: ${theGroceryListItem.name} ${theGroceryListItem.amount} ${theGroceryListItem.unit}`
-      );
     }
-
-    // compute cart total price and total quantity
-    // this.computeListTotal();
   }
 
   updateMealList(newRecipe: Recipe) {
@@ -149,7 +137,6 @@ export class GroceryListService {
           mealListStatusComp.innerHTML = newQuantity.toString();
         this.addIngredientsToTotal(this.mealListItem);
         this.computeListTotal();
-        console.log('---');
       } else {
         const newMeal = new MealListItem(
           this.newId,
@@ -167,7 +154,6 @@ export class GroceryListService {
         if (mealListStatusComp)
           mealListStatusComp.innerHTML = newQuantity.toString();
         this.addIngredientsToTotal(newMeal);
-        console.log('---');
       }
     });
   }

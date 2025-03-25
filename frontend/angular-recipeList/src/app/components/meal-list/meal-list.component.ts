@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MealListItem } from '../../common/meal-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { ActivatedRoute } from '@angular/router';
+import { IngredientService } from '../../services/ingredient/ingredient.service';
+import { RecipeService } from '../../services/recipe/recipe.service';
 
 @Component({
   selector: 'app-meal-list',
@@ -16,6 +18,8 @@ export class MealListComponent implements OnInit {
 
   constructor(
     private groceryListService: GroceryListService,
+    private ingredientService: IngredientService,
+    private recipeService: RecipeService,
     private route: ActivatedRoute
   ) {}
 
@@ -32,6 +36,25 @@ export class MealListComponent implements OnInit {
   listMealList() {
     this.groceryListService.getMealList().subscribe((data) => {
       data.forEach((item) => this.mealList.push(item));
+      if (this.mealList.length > 0) {
+        let groceryListItems = this.groceryListService.getTotalIngredients();
+        if (groceryListItems.length === 0) {
+          console.log(true);
+          this.mealList.forEach((meal) => {
+            let recipe;
+            let amountOfMeals = meal.quantity;
+
+            // this.recipeService.getIngredients(meal.recipeId).subscribe(data => {
+            //   recipe = data;
+            //   console.log(data);
+            // })
+            while (amountOfMeals > 0) {
+              this.groceryListService.addIngredientsToTotal(meal);
+              amountOfMeals--;
+            }
+          });
+        }
+      }
     });
   }
 

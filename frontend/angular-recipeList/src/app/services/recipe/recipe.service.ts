@@ -12,6 +12,7 @@ import { Ingredient } from '../../common/ingredient';
 export class RecipeService {
   private baseUrl = 'http://localhost:8080/api/recipes';
   private categoryUrl = 'http://localhost:8080/api/recipe-category';
+  private ingredientBaseUrl = 'http://localhost:8080/api/recipeIngredients';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -42,11 +43,11 @@ export class RecipeService {
     return this.getRecipes(searchUrl);
   }
 
-  getIngredientList(theCategoryId: number) {
-    const ingredientUrl = `${this.baseUrl}/search/findByRecipeId?id=${theCategoryId}`;
+  // getIngredientList(theCategoryId: number) {
+  //   const ingredientUrl = `${this.baseUrl}/search/findByRecipeId?id=${theCategoryId}`;
 
-    return this.getIngredients(ingredientUrl);
-  }
+  //   return this.getIngredients(ingredientUrl);
+  // }
 
   searchRecipes(theKeyword: string) {
     // need to build URL based on keyword
@@ -74,10 +75,11 @@ export class RecipeService {
       .pipe(map((response) => response._embedded.recipes));
   }
 
-  private getIngredients(ingredientUrl: string): Observable<Ingredient[]> {
+  getIngredients(recipeId: number): Observable<Ingredient[]> {
+    const searchUrl = `${this.ingredientBaseUrl}/search/findByRecipeId?id=${recipeId}`;
     return this.httpClient
-      .get<GetResponseIngredients>(ingredientUrl)
-      .pipe(map((response) => response._embedded.ingredients));
+      .get<GetResponseIngredients>(searchUrl)
+      .pipe(map((response) => response._embedded.recipeIngredients));
   }
 
   getRecipeCategories(): Observable<RecipeCategory[]> {
@@ -107,6 +109,6 @@ interface GetResponseRecipeCategory {
 
 interface GetResponseIngredients {
   _embedded: {
-    ingredients: Ingredient[];
+    recipeIngredients: Ingredient[];
   };
 }
