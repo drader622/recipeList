@@ -1,8 +1,10 @@
 <div class="main-content">
-<h3>Purchase Confirmation</h3>
-<div class="orderInfo">
-  <span>Order Number: {{ orderNumber }}</span>
-</div>
+  <h3>Purchase Confirmation</h3>
+  <div class="orderInfo">
+    <span>
+      Order Number: <span class="orderNumber">#{{ orderNumber }}</span></span
+    >
+  </div>
   <table class="table table-dark table-striped">
     <thead class="header">
       <tr>
@@ -17,13 +19,19 @@
         <td>{{ meal.name }}</td>
         <td>{{ meal.quantity }}</td>
         <td>$8.99</td>
-        <td>{{ (meal.quantity * 8.99).toString() | currency: 'USD' }}</td>
+        <td>{{ (meal.quantity * 8.99).toString() | currency : "USD" }}</td>
       </tr>
       <tr>
         <td colspan="3" class="totalLbl">Total:</td>
-        <td>{{ purchaseTotal.toString() | currency: 'USD' }} </td>
+        <td>{{ purchaseTotal.toString() | currency : "USD" }}</td>
       </tr>
     </tbody>
   </table>
-    <button routerLink="/" class="btn btn-dark">Back to Home Page</button>
+  <p>
+    Thank you for your purchase! A confirmation has been sent to your account
+    for Order Number:<span class="orderNumber"> #{{ orderNumber }}</span
+    >. We hope you enjoy the ease and convenience of using the Meal List App
+    when it comes to time spent meal prepping and grocery shopping!
+  </p>
+  <button routerLink="/" class="btn btn-dark">Back to Home Page</button>
 </div>
