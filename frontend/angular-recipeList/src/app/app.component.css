@@ -1,0 +1,19 @@
+.logo {
+  color: #205b8d;
+  text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+  .logo {
+    border: 1px solid red;
+  }
+  .header-desktop .section-content {
+    margin: 1.25rem 0;
+  }
+}
+
+@media (max-width: 990px) {
+  .header-desktop .section-content {
+    margin: 1.75rem 0;
+  }
+}

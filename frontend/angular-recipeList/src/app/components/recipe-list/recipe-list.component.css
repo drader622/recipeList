@@ -1,0 +1,8 @@
+.col-md-3 {
+    min-width: 322.5px;
+}
+@media (max-width: 1130px) {
+    .col-md-3 {
+        /* min-width: 241px; */
+    }
+}
