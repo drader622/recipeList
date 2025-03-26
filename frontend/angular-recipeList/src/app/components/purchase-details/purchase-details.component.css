@@ -20,3 +20,8 @@
 button {
     margin: 2rem 0;
 }
+
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+}

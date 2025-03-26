@@ -11,6 +11,7 @@ import { MealListItem } from '../../common/meal-list-item';
 export class PurchaseDetailsComponent implements OnInit {
   mealList: MealListItem[] = [];
   purchaseTotal: number = 0;
+  orderNumber: number = 12334567;
 
   constructor(private groceryListService: GroceryListService) {}
   ngOnInit(): void {
@@ -23,8 +24,8 @@ export class PurchaseDetailsComponent implements OnInit {
       console.log(this.mealList);
       this.getPurchaseTotal();
       this.clearMealList();
+      this.orderNumber = this.generateOrderNum();
       let mealListStatusComp = document.getElementById('quantity');
-      let mealListQuantity = mealListStatusComp?.innerText;
       let newQuantity = 0;
       if (mealListStatusComp)
         mealListStatusComp.innerHTML = newQuantity.toString();
@@ -39,5 +40,11 @@ export class PurchaseDetailsComponent implements OnInit {
 
   clearMealList() {
     this.groceryListService.clearMealList().subscribe({});
+  }
+
+  generateOrderNum(): number {
+    const min = 1000000;
+    const max = 9999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
