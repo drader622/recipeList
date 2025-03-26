@@ -11,6 +11,7 @@ public class MealListService {
     @Autowired
     MealListRepository mealListRepository;
 
+    //clears all the data in the meal list repository 
     @Transactional
     public void clearTable() {
         mealListRepository.deleteAll();

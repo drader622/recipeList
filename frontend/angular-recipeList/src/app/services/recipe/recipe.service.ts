@@ -17,7 +17,6 @@ export class RecipeService {
   constructor(private httpClient: HttpClient) {}
 
   getRecipe(theRecipeId: number) {
-    // need to build URL based on recipe id
     const recipeUrl = `${this.baseUrl}/${theRecipeId}`;
 
     return this.httpClient.get<Recipe>(recipeUrl);
@@ -36,21 +35,15 @@ export class RecipeService {
     return this.httpClient.get<GetResponseRecipes>(searchUrl);
   }
 
+  //returns list of recipes based on which category is clicked
   getRecipeList(theCategoryId: number): Observable<Recipe[]> {
-    //build URL based on category id
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
 
     return this.getRecipes(searchUrl);
   }
 
-  // getIngredientList(theCategoryId: number) {
-  //   const ingredientUrl = `${this.baseUrl}/search/findByRecipeId?id=${theCategoryId}`;
-
-  //   return this.getIngredients(ingredientUrl);
-  // }
-
+  //returns list of recipes based on keyword entered into search
   searchRecipes(theKeyword: string) {
-    // need to build URL based on keyword
     const searchUrl = `${this.baseUrl}/search/findByTitleContaining?title=${theKeyword}`;
 
     return this.getRecipes(searchUrl);
@@ -61,7 +54,6 @@ export class RecipeService {
     thePageSize: number,
     theKeyword: string
   ): Observable<GetResponseRecipes> {
-    //need to build URL based on keyword, page, and size
     const searchUrl =
       `${this.baseUrl}/search/findByTitleContaining?title=${theKeyword}` +
       `&page=${thePage}&size=${thePageSize}`;
@@ -69,12 +61,14 @@ export class RecipeService {
     return this.httpClient.get<GetResponseRecipes>(searchUrl);
   }
 
+  //gets every recipe found in the search
   private getRecipes(searchUrl: string): Observable<Recipe[]> {
     return this.httpClient
       .get<GetResponseRecipes>(searchUrl)
       .pipe(map((response) => response._embedded.recipes));
   }
 
+  //gets every ingredient for the clicked on meal
   getIngredients(recipeId: number): Observable<Ingredient[]> {
     const searchUrl = `${this.ingredientBaseUrl}/search/findByRecipeId?id=${recipeId}`;
     return this.httpClient
@@ -82,6 +76,7 @@ export class RecipeService {
       .pipe(map((response) => response._embedded.recipeIngredients));
   }
 
+  //gets every category used for the meals
   getRecipeCategories(): Observable<RecipeCategory[]> {
     return this.httpClient
       .get<GetResponseRecipeCategory>(this.categoryUrl)

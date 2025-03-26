@@ -17,6 +17,7 @@ public class MealListController {
     @Autowired
     private MealListRepository mealListRepository;
 
+    //clears all data in meal list repository
     @DeleteMapping("/clear")
     public ResponseEntity<Void> deleteAll() {
         mealListRepository.deleteAll();

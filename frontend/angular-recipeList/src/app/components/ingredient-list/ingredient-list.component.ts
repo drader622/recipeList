@@ -32,6 +32,8 @@ export class IngredientListComponent implements OnInit {
 
   handleSearchIngredients() {
     let theRecipeId = 0;
+
+    //determine if component was generated from 'recipes' or 'meal-list' route
     if (this.route.snapshot.url[0].path == 'recipes') {
       theRecipeId = +this.route.snapshot.paramMap.get('id')!;
     } else {
@@ -41,6 +43,7 @@ export class IngredientListComponent implements OnInit {
 
     this.ingredients = [];
 
+    //gets total ingredient list for selected recipe and puts data in recipe to be rendered
     if (theRecipeId != 0) {
       this.ingredients = this.ingredientService.getIngredientList(theRecipeId);
       this.recipeService.getRecipe(theRecipeId).subscribe((data) => {

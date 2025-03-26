@@ -42,6 +42,7 @@ export class RecipeListComponent implements OnInit {
     });
     this.listRecipes();
   }
+  //determines if component was generated from search or not and handles recipes accordingly
   listRecipes() {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
@@ -52,6 +53,7 @@ export class RecipeListComponent implements OnInit {
     }
   }
 
+  //when a keyword is searched each meal found with the word is returned in a list
   handleSearchRecipes() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
@@ -70,6 +72,8 @@ export class RecipeListComponent implements OnInit {
       )
       .subscribe(this.processResult());
   }
+
+  //displays list of recipes in a paginated list 
   handleListRecipes() {
     // check if "id" param is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
@@ -112,6 +116,7 @@ export class RecipeListComponent implements OnInit {
     };
   }
 
+  //adds meal to meal list when button is clicked
   addToList(theRecipe: Recipe) {
     this.groceryListService.updateMealList(theRecipe);
   }

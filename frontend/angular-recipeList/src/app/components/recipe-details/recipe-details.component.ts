@@ -33,15 +33,17 @@ export class RecipeDetailsComponent implements OnInit {
       this.handleRecipeDetails();
     });
   }
+
+  //gets recipe and displays all the details including a detailed list of ingredients
   handleRecipeDetails() {
     const theRecipeId: number = +this.route.snapshot.paramMap.get('id')!;
 
     this.recipeService.getRecipe(theRecipeId).subscribe((data) => {
       this.recipe = data;
     });
-    // ADD METHOD TO getIngredients from recipe.service.ts to implement the ingredients on the page.
   }
 
+  //adds meal to meal list when button is clicked
   addToList() {
     this.groceryListService.updateMealList(this.recipe);
   }

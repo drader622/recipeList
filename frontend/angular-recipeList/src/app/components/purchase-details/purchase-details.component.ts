@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { MealListItem } from '../../common/meal-list-item';
 
@@ -18,10 +17,10 @@ export class PurchaseDetailsComponent implements OnInit {
     this.showPurchasedMeals();
   }
 
+  //display in table each meal that was purchased, the quantity of the meals, and the price per meal
   showPurchasedMeals() {
     this.groceryListService.getMealList().subscribe((data) => {
       this.mealList = data;
-      console.log(this.mealList);
       this.getPurchaseTotal();
       this.clearMealList();
       this.orderNumber = this.generateOrderNum();
@@ -32,16 +31,19 @@ export class PurchaseDetailsComponent implements OnInit {
     });
   }
 
+  //gets the total amount owed for entire meal list
   getPurchaseTotal() {
     this.mealList.forEach((meal) => {
       this.purchaseTotal = this.purchaseTotal + meal.quantity * 8.99;
     });
   }
 
+  //clears entire meal list repository once order is purchased
   clearMealList() {
     this.groceryListService.clearMealList().subscribe({});
   }
 
+  //generates random 7 digit number for order number
   generateOrderNum(): number {
     const min = 1000000;
     const max = 9999999;
