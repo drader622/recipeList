@@ -12,9 +12,7 @@ export class PurchaseDetailsComponent implements OnInit {
   mealList: MealListItem[] = [];
   purchaseTotal: number = 0;
 
-  constructor(
-    private groceryListService: GroceryListService
-  ) {}
+  constructor(private groceryListService: GroceryListService) {}
   ngOnInit(): void {
     this.showPurchasedMeals();
   }
@@ -24,6 +22,12 @@ export class PurchaseDetailsComponent implements OnInit {
       this.mealList = data;
       console.log(this.mealList);
       this.getPurchaseTotal();
+      this.clearMealList();
+      let mealListStatusComp = document.getElementById('quantity');
+      let mealListQuantity = mealListStatusComp?.innerText;
+      let newQuantity = 0;
+      if (mealListStatusComp)
+        mealListStatusComp.innerHTML = newQuantity.toString();
     });
   }
 
@@ -34,6 +38,6 @@ export class PurchaseDetailsComponent implements OnInit {
   }
 
   clearMealList() {
-    
+    this.groceryListService.clearMealList().subscribe({});
   }
 }

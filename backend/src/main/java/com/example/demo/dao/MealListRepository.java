@@ -9,5 +9,5 @@ import com.example.demo.entity.MealList;
 @CrossOrigin("http://localhost:4200")
 @RepositoryRestResource(collectionResourceRel="mealList", path="meal-list")
 public interface MealListRepository extends JpaRepository<MealList, Long> {
-
+    void deleteAll();
 }

@@ -58,6 +58,15 @@ export class GroceryListService {
     meal.quantity--;
     return this.httpClient.post<MealListItem>(this.baseUrl, meal);
   }
+  
+  clearMealList(): Observable<any> {
+    this.mealList = [];
+    
+    const deleteUrl = `${this.baseUrl}/clear`;
+    return this.httpClient.delete(`${deleteUrl}`)
+
+
+  }
 
   addIngredientsToTotal(meal: MealListItem) {
     let url = `http://localhost:8080/api/recipeIngredients/search/findByRecipeId?id=${meal.recipeId}`;
@@ -129,7 +138,6 @@ export class GroceryListService {
         this.mealListItem.quantity++;
         this.addMealToList(this.mealListItem).subscribe();
 
-        // JUST CHANGE THE ELEMENT TO EQUAL QUANTITY + 1. THEN TAKE DATA FROM MEAL PAGE NEEDED WHEN ADDING INGREDIENTS
         let mealListStatusComp = document.getElementById('quantity');
         let mealListQuantity = mealListStatusComp?.innerText;
         let newQuantity = Number(mealListQuantity) + 1;
