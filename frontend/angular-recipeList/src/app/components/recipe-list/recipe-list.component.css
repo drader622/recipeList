@@ -1,8 +1,18 @@
 .col-md-3 {
-    min-width: 322.5px;
+  min-width: 322.5px;
 }
-@media (max-width: 1130px) {
-    .col-md-3 {
-        /* min-width: 241px; */
-    }
+
+ngb-pagination ::ng-deep ul > li.active > a {
+  color: #ffff !important;
+  background-color: #212529 !important;
+  border-color: #212529 !important;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a:hover {
+  background-color: #424649 !important;
+  border-color: #424649 !important;
+}
+
+ngb-pagination ::ng-deep ul > li > a {
+  color: #424649 !important;
 }

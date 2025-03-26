@@ -139,6 +139,7 @@ a:hover {
 
 .main-content .dropdown {
   text-align: center;
+  margin-left: 1rem;
 }
 
 .main-content .recipeRow {
@@ -153,6 +154,11 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
   box-shadow: -2px 0 4px #0000003b;
 }
 
+.darkText {
+  color: #212529;
+  text-decoration-color: #212529;
+}
+
 /* 
  * ----------------------------
  * Header Desktop Section
@@ -160,7 +166,7 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
  */
 
 .header-desktop {
-  background: #0da8e4;
+  background: #adb5bd;
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -287,6 +293,14 @@ input.au-input.au-input-xl {
   color: #fff;
 }
 
+.cart-area:hover i {
+  color: #05143f;
+}
+
+.cart-area:hover .total {
+  background-color: #05143f;
+}
+
 .total {
   float: right;
   text-align: center;
@@ -382,6 +396,10 @@ input.au-input.au-input-xl {
   border-right: 1px solid #e5e5e5;
   position: relative;
   z-index: 3;
+}
+
+.abbLogo {
+  display: none;
 }
 
 .menu-sidebar .navbar-list .navbar-sub-list {
@@ -973,8 +991,9 @@ footer ul li {
   .logo {
     text-align: center;
     text-decoration: none !important;
-    margin: .75rem;
+    margin: 0.75rem;
   }
+
   .header-desktop {
     position: relative;
     top: 0;
@@ -1021,7 +1040,7 @@ footer ul li {
     top: 93px !important;
   }
   .cart-area i {
-    font-size: 22px;
+    font-size: 25px;
     float: left;
     margin-top: 16px;
     color: #ffffff;
@@ -1034,9 +1053,16 @@ footer ul li {
     -ms-flex-pack: justify;
     justify-content: space-between;
   }
+
+  .navbar-list {
+    padding: 0 2rem;
+  }
 }
 
 @media (max-width: 767px) {
+  .au-input {
+    padding: 0 10px;
+  }
   .au-input-xl {
     min-width: 150px;
   }
@@ -1044,8 +1070,15 @@ footer ul li {
     font-size: 22px;
     margin-right: 15px;
   }
+  .main-content{
+    padding: 0;
+  }
   .main-content.page-m {
     padding: 10% 0 !important;
+  }
+  .main-content .recipeRow {
+    margin: 0;
+    margin-top: 1rem;
   }
   .header-mobile .navbar-mobile {
     display: none;
@@ -1053,6 +1086,16 @@ footer ul li {
     width: 100%;
     top: 66px;
     z-index: 20;
+  }
+  .navbar-list {
+    padding: 0;
+  }
+  .navbar-list li{
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .navbar-sidebar .navbar-list li a {
+    font-size: 11px;
   }
   .section-content.section-content-p30.e-spc {
     padding-top: 100px;
@@ -1066,32 +1109,30 @@ footer ul li {
     left: 0;
     height: 80px;
   }
-  a.logo img {
-    width: 110px;
+
+  .logo {
+    display: none;
   }
 
-  .cart-area i {
-    font-size: 22px;
-    float: left;
-    margin-top: 16px;
-    color: #205b8d;
-    margin-left: 15px;
+  .abbLogo {
+    display: flex;
+    margin-top: 1.2rem;
   }
+
   .footer-pagination {
     text-align: center;
   }
   .product-box {
-    text-align: centerg;
+    text-align: center;
   }
   .page-container {
     position: relative;
-    top: 66px;
     padding-left: 0;
   }
   .au-btn-submit {
     position: relative;
     right: 10px;
-    min-width: 85px;
+    min-width: 65px;
     color: #fff;
     border: 1px solid #205b8d;
     -webkit-border-radius: 3px;
@@ -1106,34 +1147,22 @@ footer ul li {
   .cart-area.d-b {
     display: block;
   }
-  .cart-area.d-n {
-    display: none;
-  }
+
   .cart-area i {
-    font-size: 18px;
+    font-size: 25px;
     float: left;
-    margin-top: 16px;
-    color: #03a9f4;
+    margin-top: 20px;
+    color: #ffffff;
     margin-left: 15px;
+    padding-right: 20px;
   }
-  .total span {
-    display: inline-block;
-    background: #fff;
-    padding: 0 10px;
-    color: #000;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    margin-left: 6px;
-  }
+
   .total {
     background: #205b8d;
     line-height: 30px;
     color: #fff;
     border-radius: 30px;
-    border: 1px solid #205b8d;
     float: left;
-    margin-top: 9px;
-    padding-left: 12px;
   }
   .header-mobile .header-mobile-bar {
     padding: 6px 0;

@@ -1,12 +1,16 @@
 .logo {
   color: #205b8d;
   text-decoration: none;
+    font-family: "Shadows Into Light", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.logo:hover{
+  color: #05143f;
 }
 
 @media (max-width: 1000px) {
-  .logo {
-    border: 1px solid red;
-  }
   .header-desktop .section-content {
     margin: 1.25rem 0;
   }
@@ -17,3 +21,5 @@
     margin: 1.75rem 0;
   }
 }
+
+

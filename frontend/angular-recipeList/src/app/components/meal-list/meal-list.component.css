@@ -44,12 +44,12 @@ i {
   padding: 0.25rem;
   font-size: 1.2rem;
   color: white;
-  background-color: #0d6efd;
+  background-color: #212529;
   border-radius: 1rem;
   cursor: pointer;
 }
 i:hover {
-  background-color: #0b5ed7;
+  background-color: #424649;
 }
 
 .mealList {

@@ -24,14 +24,14 @@
           </div>
           <button
             (click)="deleteItem(meal.id)"
-            class="btn btn-primary btn-sm delete"
+            class="btn btn-dark btn-sm delete"
           >
             Delete
           </button>
           <button
             routerLink="/meal-list/{{ meal.recipeId }}"
             (click)="showIngredients()"
-            class="btn btn-primary btn-sm view"
+            class="btn btn-dark btn-sm view"
           >
             View Ingredients
           </button>
@@ -40,8 +40,8 @@
     </div>
 
     <div class="checkoutBtns">
-      <button routerLink="/purchase-details" class="btn btn-primary">Purchase Meals</button>
-      <button class="btn btn-primary" (click)="showTotalIngredients()">
+      <button routerLink="/purchase-details" class="btn btn-dark">Purchase Meals</button>
+      <button class="btn btn-dark" (click)="showTotalIngredients()">
         View total ingredient list
       </button>
     </div>

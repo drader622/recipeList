@@ -10,12 +10,12 @@
               <img src="{{ tempRecipe.imageUrl }}" class="img-responsive" />
             </a>
 
-            <a routerLink="/recipes/{{ tempRecipe.id }}">
+            <a routerLink="/recipes/{{ tempRecipe.id }}" class="darkText">
               <h1>{{ tempRecipe.title }}</h1>
 
             </a>
               <div>{{ tempRecipe.description }}</div>
-            <button (click)="addToList(tempRecipe)" class="btn btn-primary btn-small">Add to list</button>
+            <button (click)="addToList(tempRecipe)" class="btn btn-dark btn-small">Add to list</button>
           </div>
         </div>
 
