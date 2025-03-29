@@ -14,14 +14,22 @@ export class LoginComponent implements OnInit {
 
   constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {
     this.oktaSignIn = new OktaSignIn({
-      logo: 'assets/images/logo.png',
+      header: 'test',
       baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0],
       clientId: myAppConfig.oidc.clientId,
       redirectUri: myAppConfig.oidc.redirectUri,
+      i18n: {
+        en: {
+          'primaryauth.title': 'Log In',
+        },
+      },
       authParams: {
         pkce: true,
         issuer: myAppConfig.oidc.issuer,
         scopes: myAppConfig.oidc.scopes,
+      },
+      features: {
+        registration: true,
       },
     });
   }
