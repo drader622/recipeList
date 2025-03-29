@@ -18,6 +18,8 @@ export class GroceryListStatusComponent implements OnInit {
     this.showComponent = false;
     this.updateGroceryListStatus();
   }
+
+  //adds 1 to the quantity displayed for list total and then displays new quantity and updates recipe total in repository
   updateGroceryListStatus() {
     this.showComponent = true;
     this.groceryListService.getMealList().subscribe((data) => {

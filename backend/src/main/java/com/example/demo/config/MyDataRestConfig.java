@@ -1,9 +1,9 @@
 package com.example.demo.config;
 
-import com.example.demo.entity.Recipe;
-import com.example.demo.entity.RecipeCategory;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.metamodel.EntityType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -11,13 +11,16 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import com.example.demo.entity.Recipe;
+import com.example.demo.entity.RecipeCategory;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.metamodel.EntityType;
 
 // makes repository read only
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
+
     private EntityManager entityManager;
 
     @Autowired
@@ -44,10 +47,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
 
         //call an internal helper method
-        expostIds(config);
+        exposeIds(config);
     }
 
-    private void expostIds(RepositoryRestConfiguration config) {
+    private void exposeIds(RepositoryRestConfiguration config) {
         // expose entity ids
 
         // get a list of all entity classes from th entity manager
@@ -64,8 +67,5 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         // expose the entity ids for the array of entity/domain types
         Class[] domainTypes = entityClasses.toArray(new Class[0]);
         config.exposeIdsFor(domainTypes);
-
-
-
     }
 }

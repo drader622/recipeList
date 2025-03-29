@@ -15,9 +15,10 @@ export class RecipeCategoryMenuComponent {
   ngOnInit() {
     this.listRecipeCategories();
   }
+
+  //lists the recipe categories on the navbar
   listRecipeCategories() {
     this.recipeServices.getRecipeCategories().subscribe((data) => {
-      // console.log('Recipe Categories=' + JSON.stringify(data));
       this.recipeCategories = data;
     });
   }

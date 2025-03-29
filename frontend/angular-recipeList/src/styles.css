@@ -139,6 +139,7 @@ a:hover {
 
 .main-content .dropdown {
   text-align: center;
+  margin-left: 1rem;
 }
 
 .main-content .recipeRow {
@@ -153,6 +154,11 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
   box-shadow: -2px 0 4px #0000003b;
 }
 
+.darkText {
+  color: #212529;
+  text-decoration-color: #212529;
+}
+
 /* 
  * ----------------------------
  * Header Desktop Section
@@ -160,7 +166,7 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
  */
 
 .header-desktop {
-  background: #0da8e4;
+  background: #adb5bd;
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -177,10 +183,10 @@ aside.menu-sidebar.d-none.d-lg-block.clr {
 .header-desktop .section-content {
   overflow: visible;
   /* position: absolute; */
-  top: 50%;
+  /* top: 50%; */
   left: 0;
   right: 0;
-  margin: 0;
+  margin: 1.25rem 0;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -266,37 +272,55 @@ input.au-input.au-input-xl {
   transition: all 0.5s ease;
 }
 
-.cart-area.d-n {
-  display: block;
+.cart {
+  right: 0;
+  height: 10%;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 22px;
+  text-align: left;
+  position: relative;
+}
+
+.fa fa-shopping-cart {
+  float: left;
 }
 
 .cart-area i {
-  font-size: 22px;
+  font-size: 25px;
   float: left;
   margin-top: 16px;
   color: #fff;
-  margin-left: 15px;
+}
+
+.cart-area:hover i {
+  color: #05143f;
+}
+
+.cart-area:hover .total {
+  background-color: #05143f;
 }
 
 .total {
-  background: #205b8d;
-  line-height: 43px;
-  color: #fff;
-  border-radius: 30px;
-  border: 1px solid #0da8e4;
-  float: left;
-  margin-top: 7px;
-  padding-left: 17px;
+  float: right;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  background-color: #205b8d;
+  color: #ffffff;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  position: absolute;
+  left: 30px;
 }
 
 .total span {
   display: inline-block;
-  background: #fff;
   padding: 0 13px;
   color: #000;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  margin-left: 11px;
 }
 
 .form-header {
@@ -372,6 +396,10 @@ input.au-input.au-input-xl {
   border-right: 1px solid #e5e5e5;
   position: relative;
   z-index: 3;
+}
+
+.abbLogo {
+  display: none;
 }
 
 .menu-sidebar .navbar-list .navbar-sub-list {
@@ -794,9 +822,6 @@ table.table.table-bordered th {
   display: flex;
   min-height: 645px;
 }
-.detail-section div {
-  width: 40%;
-}
 .detail-section .btn {
   margin-top: 1rem;
   font-size: 1.2rem;
@@ -909,14 +934,7 @@ footer ul li {
   }
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {
-  .cart-area i {
-    font-size: 22px;
-    float: left;
-    margin-top: 16px;
-    color: #205b8d;
-    margin-left: 15px;
-  }
+@media (max-width: 1199px) {
   .header-mobile .header-mobile-bar {
     padding: 10px 0;
     background: #fff;
@@ -932,7 +950,6 @@ footer ul li {
   }
   .page-container {
     position: relative;
-    top: 88px;
     padding-left: 0;
   }
   .page-wrapper {
@@ -943,8 +960,14 @@ footer ul li {
     padding-top: 50px;
     padding-bottom: 100px;
   }
-  .cart-area.d-n {
-    display: none;
+  .cart {
+    right: 0;
+    height: 10%;
+    color: #ffffff;
+    padding: 0;
+    float: right;
+    font-size: 22px;
+    text-align: center;
   }
   .form-header {
     -webkit-box-pack: center;
@@ -954,11 +977,14 @@ footer ul li {
     justify-content: center;
   }
   .au-input-xl {
-    min-width: 350px;
+    min-width: 250px;
   }
   .logo {
     text-align: center;
+    text-decoration: none !important;
+    margin: 0.75rem;
   }
+
   .header-desktop {
     position: relative;
     top: 0;
@@ -968,11 +994,11 @@ footer ul li {
   .header-wrap {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
+    /* -webkit-flex-direction: column; */
     -moz-box-orient: vertical;
     -moz-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
+    /* -ms-flex-direction: column; */
+    /* flex-direction: column; */
   }
   .header-button {
     margin-top: 30px;
@@ -1005,10 +1031,10 @@ footer ul li {
     top: 93px !important;
   }
   .cart-area i {
-    font-size: 22px;
+    font-size: 25px;
     float: left;
     margin-top: 16px;
-    color: #205b8d;
+    color: #ffffff;
     margin-left: 15px;
   }
   .header-wrap2 {
@@ -1018,9 +1044,28 @@ footer ul li {
     -ms-flex-pack: justify;
     justify-content: space-between;
   }
+
+  .navbar-list {
+    padding: 0 2rem;
+  }
+  .detail-section {
+    display: block;
+    text-align: center;
+    padding: 0;
+  }
+
+  .mt-5 {
+    margin-bottom: 3rem !important;
+  }
+  .table {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 767px) {
+  .au-input {
+    padding: 0 10px;
+  }
   .au-input-xl {
     min-width: 150px;
   }
@@ -1028,8 +1073,15 @@ footer ul li {
     font-size: 22px;
     margin-right: 15px;
   }
+  .main-content {
+    padding: 0;
+  }
   .main-content.page-m {
     padding: 10% 0 !important;
+  }
+  .main-content .recipeRow {
+    margin: 0;
+    margin-top: 1rem;
   }
   .header-mobile .navbar-mobile {
     display: none;
@@ -1037,6 +1089,16 @@ footer ul li {
     width: 100%;
     top: 66px;
     z-index: 20;
+  }
+  .navbar-list {
+    padding: 0;
+  }
+  .navbar-list li {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .navbar-sidebar .navbar-list li a {
+    font-size: 11px;
   }
   .section-content.section-content-p30.e-spc {
     padding-top: 100px;
@@ -1050,32 +1112,30 @@ footer ul li {
     left: 0;
     height: 80px;
   }
-  a.logo img {
-    width: 110px;
+
+  .logo {
+    display: none;
   }
 
-  .cart-area i {
-    font-size: 22px;
-    float: left;
-    margin-top: 16px;
-    color: #205b8d;
-    margin-left: 15px;
+  .abbLogo {
+    display: flex;
+    margin-top: 1.2rem;
   }
+
   .footer-pagination {
     text-align: center;
   }
   .product-box {
-    text-align: centerg;
+    text-align: center;
   }
   .page-container {
     position: relative;
-    top: 66px;
     padding-left: 0;
   }
   .au-btn-submit {
     position: relative;
     right: 10px;
-    min-width: 85px;
+    min-width: 65px;
     color: #fff;
     border: 1px solid #205b8d;
     -webkit-border-radius: 3px;
@@ -1090,34 +1150,22 @@ footer ul li {
   .cart-area.d-b {
     display: block;
   }
-  .cart-area.d-n {
-    display: none;
-  }
+
   .cart-area i {
-    font-size: 18px;
+    font-size: 25px;
     float: left;
-    margin-top: 16px;
-    color: #03a9f4;
+    margin-top: 20px;
+    color: #ffffff;
     margin-left: 15px;
+    padding-right: 20px;
   }
-  .total span {
-    display: inline-block;
-    background: #fff;
-    padding: 0 10px;
-    color: #000;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    margin-left: 6px;
-  }
+
   .total {
     background: #205b8d;
     line-height: 30px;
     color: #fff;
     border-radius: 30px;
-    border: 1px solid #205b8d;
     float: left;
-    margin-top: 9px;
-    padding-left: 12px;
   }
   .header-mobile .header-mobile-bar {
     padding: 6px 0;

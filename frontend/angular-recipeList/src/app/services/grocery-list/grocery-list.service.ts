@@ -20,45 +20,48 @@ export class GroceryListService {
   mealListItem: any;
   newId = 0;
 
-  // private dataUpdatedSource = new Subject<void>();
-  // dataUpdated$ = this.dataUpdatedSource.asObservable();
-
-  // notifyDataUpdated() {
-  //   this.dataUpdatedSource.next();
-  // }
-
   totalQuantity: Subject<number> = new Subject<number>();
   newMeal: MealListItem | undefined;
-  constructor(
-    private httpClient: HttpClient,
-    private recipeService: RecipeService,
-    private ingredientService: IngredientService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
+  //returns entire meal list
   getMealList(): Observable<MealListItem[]> {
     const mealListUrl = `${this.baseUrl}`;
 
     return this.getMeals(mealListUrl);
   }
 
+  //puts new meal in meal list repository
   addMealToList(meal: MealListItem): Observable<any> {
     return this.httpClient.post<MealListItem>(this.baseUrl, meal);
   }
 
+  //deletes meal from meal list repository
   deleteItemFromList(id: number): Observable<any> {
     return this.httpClient.delete(`${this.baseUrl}/${id}`);
   }
 
+  //puts meal quantity into proper row after adding 1
   increaseQuantity(meal: MealListItem) {
     meal.quantity++;
     return this.httpClient.post<MealListItem>(this.baseUrl, meal);
   }
 
+  //puts meal quantity into proper row after subtracting 1
   decreaseQuantity(meal: MealListItem) {
     meal.quantity--;
     return this.httpClient.post<MealListItem>(this.baseUrl, meal);
   }
 
+  //clears all of data from table
+  clearMealList(): Observable<any> {
+    this.mealList = [];
+
+    const deleteUrl = `${this.baseUrl}/clear`;
+    return this.httpClient.delete(`${deleteUrl}`);
+  }
+
+  //gets each ingredient from the meal passed and adds each one to the list
   addIngredientsToTotal(meal: MealListItem) {
     let url = `http://localhost:8080/api/recipeIngredients/search/findByRecipeId?id=${meal.recipeId}`;
     this.httpClient.get<GetResponseIngredients>(url).subscribe((val) =>
@@ -69,6 +72,7 @@ export class GroceryListService {
     );
   }
 
+  //adds ingredient to total ingredient list
   addIngredientToList(theGroceryListItem: GroceryListItem) {
     let alreadyExistsInList: boolean = false;
     let existingListItem: GroceryListItem = undefined!;
@@ -112,12 +116,10 @@ export class GroceryListService {
     }
   }
 
+  //adds ingredient from recipe to meal list and then computes total ingredients for entire meal list
   updateMealList(newRecipe: Recipe) {
-    let statusComponent = GroceryListStatusComponent;
-    const recipeId: number = newRecipe.id;
     let mealList: MealListItem[] = [];
     this.mealListItem = undefined;
-    let mealListQuantity = 0;
     this.getMealList().subscribe((data) => {
       mealList = data;
 
@@ -129,7 +131,6 @@ export class GroceryListService {
         this.mealListItem.quantity++;
         this.addMealToList(this.mealListItem).subscribe();
 
-        // JUST CHANGE THE ELEMENT TO EQUAL QUANTITY + 1. THEN TAKE DATA FROM MEAL PAGE NEEDED WHEN ADDING INGREDIENTS
         let mealListStatusComp = document.getElementById('quantity');
         let mealListQuantity = mealListStatusComp?.innerText;
         let newQuantity = Number(mealListQuantity) + 1;
@@ -158,6 +159,7 @@ export class GroceryListService {
     });
   }
 
+  //computes total quantity for each ingredient in total list
   computeListTotal() {
     let totalQuantityValue: number = 0;
 
@@ -169,6 +171,7 @@ export class GroceryListService {
     this.totalQuantity.next(totalQuantityValue);
   }
 
+  //gets total ingredients
   getTotalIngredients() {
     return this.groceryListItems;
   }

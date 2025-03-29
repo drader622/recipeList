@@ -17,24 +17,8 @@ import { IngredientListComponent } from './components/ingredient-list/ingredient
 import { GroceryListStatusComponent } from './components/grocery-list-status/grocery-list-status.component';
 import { MealListComponent } from './components/meal-list/meal-list.component';
 import { TotalIngredientListComponent } from './components/total-ingredient-list/total-ingredient-list.component';
-import { LoginComponent } from './components/login/login.component';
-import { LoginStatusComponent } from './components/login-status/login-status.component';
-
-import {
-  OktaAuthModule,
-  OktaCallbackComponent,
-  OKTA_CONFIG,
-} from '@okta/okta-angular';
-
-import { OktaAuth } from '@okta/okta-auth-js';
-import myAppConfig from './config/my-app-config';
-
-const oktaConfig = myAppConfig.oidc;
-const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
-  { path: 'login/callback', component: OktaCallbackComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'meal-list/:id', component: MealListComponent },
   { path: 'meal-list', component: MealListComponent },
   { path: 'recipes/:id', component: RecipeDetailsComponent },
@@ -57,8 +41,6 @@ const routes: Routes = [
     GroceryListStatusComponent,
     MealListComponent,
     TotalIngredientListComponent,
-    LoginComponent,
-    LoginStatusComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

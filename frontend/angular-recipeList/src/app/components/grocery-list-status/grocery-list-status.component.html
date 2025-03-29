@@ -1,8 +1,9 @@
-<div class="cart-area d-n" *ngIf="showComponent">
+<div class="cart-area d-n cart" *ngIf="showComponent">
   <a routerLink="/meal-list">
-    <div id="quantity" class="total">
-      {{ totalQuantity }}
+
+    <div class="">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      <div id="quantity" class="total">{{ totalQuantity }}</div>
     </div>
-    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
   </a>
 </div>

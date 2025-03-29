@@ -1,0 +1,35 @@
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.table, p {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+p {
+    margin-top: 2rem;
+}
+
+.header {
+    border: 1px solid black;
+}
+
+.totalLbl {
+    text-align: right;
+}
+
+button {
+    margin: 2rem 0;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.orderNumber {
+    font-weight: bold;
+}

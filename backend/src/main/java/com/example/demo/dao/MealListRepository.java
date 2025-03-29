@@ -10,4 +10,7 @@ import com.example.demo.entity.MealList;
 @RepositoryRestResource(collectionResourceRel="mealList", path="meal-list")
 public interface MealListRepository extends JpaRepository<MealList, Long> {
 
+    //deletes data from meal list repository
+    @Override
+    void deleteAll();
 }

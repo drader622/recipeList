@@ -17,14 +17,14 @@ export class TotalIngredientListComponent implements OnInit {
     this.getTotalIngredients();
   }
 
+  //retrieves all the ingredients for the entire meal list so ingredients can be rendered
   getTotalIngredients() {
     this.ingredients = this.groceryListService.getTotalIngredients();
-    console.log(this.groceryListService.getTotalIngredients());
   }
 
+  //close button
   closeIngredients() {
     let component = document.getElementById('ingredientComponent');
     component?.classList.add('hidden');
-    // location.reload();
   }
 }
