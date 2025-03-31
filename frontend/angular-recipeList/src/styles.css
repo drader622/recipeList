@@ -249,7 +249,7 @@ section {
 }
 
 .au-input-xl {
-  min-width: 935px;
+  min-width: 750px;
 }
 
 input.au-input.au-input-xl {
@@ -280,6 +280,7 @@ input.au-input.au-input-xl {
   font-size: 22px;
   text-align: left;
   position: relative;
+  margin-left: 2rem;
 }
 
 .fa fa-shopping-cart {
@@ -903,7 +904,7 @@ footer ul li {
  * ----------------------------
  */
 
-@media (max-width: 1600px) {
+@media (max-width: 1620px) {
   .au-input-xl {
     min-width: 290px;
   }
@@ -944,7 +945,7 @@ footer ul li {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1120px) {
   .section-content-p30 {
     padding: 0;
   }
@@ -979,10 +980,13 @@ footer ul li {
   .au-input-xl {
     min-width: 250px;
   }
-  .logo {
-    text-align: center;
-    text-decoration: none !important;
-    margin: 0.75rem;
+    .logo {
+    display: none;
+  }
+
+  .abbLogo {
+    display: flex;
+    margin-top: 1.2rem;
   }
 
   .header-desktop {
@@ -1062,7 +1066,7 @@ footer ul li {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 820px) {
   .au-input {
     padding: 0 10px;
   }
@@ -1111,15 +1115,6 @@ footer ul li {
     top: 0;
     left: 0;
     height: 80px;
-  }
-
-  .logo {
-    display: none;
-  }
-
-  .abbLogo {
-    display: flex;
-    margin-top: 1.2rem;
   }
 
   .footer-pagination {

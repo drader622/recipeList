@@ -27,7 +27,8 @@ export class LoginStatusComponent implements OnInit {
     if (this.isAuthenticated) {
       // Fetch the logged in user details
       this.oktaAuth.getUser().then((res) => {
-        this.userFullName = res.name as string;
+        console.log(res);
+        this.userFullName = res.given_name as string;
       });
     }
   }

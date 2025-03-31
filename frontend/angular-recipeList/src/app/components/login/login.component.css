@@ -1,3 +1,6 @@
+.login-status-header {
+  margin-left: 2rem;
+}
 #okta-sign-in-widget {
   padding: 0;
 }
