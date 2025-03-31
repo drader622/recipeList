@@ -10,9 +10,6 @@
   color: #05143f;
 }
 
-@media (max-width: 1600px) {
-}
-
 @media (max-width: 1120px) {
   .header-desktop .section-content {
     margin: 1.75rem 0;

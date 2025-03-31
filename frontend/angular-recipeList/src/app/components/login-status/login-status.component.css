@@ -10,6 +10,11 @@
   background: #205b8d;
 }
 
+.security-btn:hover {
+  background-color: #05143f;
+  border-color: #05143f;
+}
+
 .login-status-header {
   display: flex;
   margin-left: 2rem;

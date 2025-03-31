@@ -19,6 +19,7 @@ import { MealListComponent } from './components/meal-list/meal-list.component';
 import { TotalIngredientListComponent } from './components/total-ingredient-list/total-ingredient-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
+import { PurchaseDetailsComponent } from './components/purchase-details/purchase-details.component';
 
 import {
   OktaAuthModule,
@@ -35,6 +36,7 @@ const oktaAuth = new OktaAuth(oktaConfig);
 const routes: Routes = [
   { path: 'login/callback', component: OktaCallbackComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'purchase-details', component: PurchaseDetailsComponent },
   { path: 'meal-list/:id', component: MealListComponent },
   { path: 'meal-list', component: MealListComponent },
   { path: 'recipes/:id', component: RecipeDetailsComponent },
@@ -57,6 +59,7 @@ const routes: Routes = [
     GroceryListStatusComponent,
     MealListComponent,
     TotalIngredientListComponent,
+    PurchaseDetailsComponent,
     LoginComponent,
     LoginStatusComponent,
   ],
@@ -68,7 +71,7 @@ const routes: Routes = [
     NgbModule,
     OktaAuthModule,
   ],
-  providers: [RecipeService, {provide: OKTA_CONFIG, useValue: { oktaAuth}}],
+  providers: [RecipeService, { provide: OKTA_CONFIG, useValue: { oktaAuth } }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

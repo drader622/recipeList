@@ -13,7 +13,7 @@ export class LoginStatusComponent implements OnInit {
 
   constructor(
     private oktaAuthService: OktaAuthStateService,
-    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth,
   ) {}
 
   ngOnInit(): void {
@@ -27,8 +27,8 @@ export class LoginStatusComponent implements OnInit {
     if (this.isAuthenticated) {
       // Fetch the logged in user details
       this.oktaAuth.getUser().then((res) => {
-        console.log(res);
         this.userFullName = res.given_name as string;
+        return res;
       });
     }
   }
