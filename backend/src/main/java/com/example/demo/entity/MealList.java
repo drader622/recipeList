@@ -1,9 +1,5 @@
 package com.example.demo.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.example.demo.dao.RecipeIngredientRepository;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,8 +12,6 @@ import lombok.Data;
 @Table(name = "meal_list")
 @Data
 public class MealList {
-    @Autowired
-    private RecipeIngredientRepository recipeIngredientRepository;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "meal_id")

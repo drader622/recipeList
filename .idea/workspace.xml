@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="535337ee-6fe2-4fe5-9a5b-1f2dc40513fe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/create database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/.bin/esbuild" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/.bin/esbuild" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/@esbuild/win32-x64/esbuild.exe" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/@esbuild/win32-x64/esbuild.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/@esbuild/win32-x64/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/@esbuild/win32-x64/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/bin/esbuild" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/bin/esbuild" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/install.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/install.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/lib/main.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/lib/main.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/lib/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/lib/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/node_modules/esbuild/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular-recipeList/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular-recipeList/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/MealList.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/MealList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/RecipeIngredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/RecipeIngredient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +53,7 @@
     "Spring Boot.DemoApplication.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/fs132313/OneDrive - First Solar/Documents/100Devs/_portfolio/groceryList",
+    "last_opened_file_path": "C:/Users/drade/OneDrive/Documents/100Devs/_portfolio/recipeList/recipeList",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,6 +94,7 @@
       <workItem from="1712975492940" duration="6545000" />
       <workItem from="1713137860259" duration="403000" />
       <workItem from="1741679136435" duration="21000" />
+      <workItem from="1746387075259" duration="800000" />
     </task>
     <servers />
   </component>
