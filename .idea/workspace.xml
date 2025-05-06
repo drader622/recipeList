@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="535337ee-6fe2-4fe5-9a5b-1f2dc40513fe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/MealList.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/MealList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/RecipeIngredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/demo/entity/RecipeIngredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +59,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "advanced.settings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -69,7 +73,9 @@
   </component>
   <component name="RunManager">
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="demo" />
+      <option name="ALTERNATIVE_JRE_PATH" value="zulu-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="recipeList" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -95,6 +101,9 @@
       <workItem from="1713137860259" duration="403000" />
       <workItem from="1741679136435" duration="21000" />
       <workItem from="1746387075259" duration="800000" />
+      <workItem from="1746391355540" duration="114000" />
+      <workItem from="1746392505914" duration="246000" />
+      <workItem from="1746393469981" duration="1346000" />
     </task>
     <servers />
   </component>
