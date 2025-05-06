@@ -12,7 +12,6 @@ node_modules/
 package-lock.json
 
 # Distribution / build results
-/dist/
 /build/
 
 # Caches
