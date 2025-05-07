@@ -13,7 +13,8 @@ import { Ingredient } from '../../common/ingredient';
   providedIn: 'root',
 })
 export class GroceryListService {
-  private baseUrl = 'http://localhost:8080/api/meal-list';
+  private baseUrl =
+    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/meal-list';
   groceryListItems: GroceryListItem[] = [];
   mealList: MealListItem[] = [];
   ingredients: Ingredient[] = [];

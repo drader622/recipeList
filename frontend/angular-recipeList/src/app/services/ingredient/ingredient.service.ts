@@ -6,19 +6,20 @@ import { Ingredient } from '../../common/ingredient';
   providedIn: 'root',
 })
 export class IngredientService {
-  private baseUrl = 'http://localhost:8080/api/recipeIngredients';
+  private baseUrl =
+    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipeIngredients';
   ingredients: Ingredient[] = [];
 
   constructor(private httpClient: HttpClient) {}
 
-  //gets ingredient information based on ingredient id number passed 
+  //gets ingredient information based on ingredient id number passed
   getIngredient(theIngredientId: number) {
     const ingredientUrl = `${this.baseUrl}/${theIngredientId}`;
 
     return this.httpClient.get<Ingredient>(ingredientUrl);
   }
 
-  //gets all the ingredients based on the recipe id 
+  //gets all the ingredients based on the recipe id
   getIngredientList(theRecipeId: number): Ingredient[] {
     const searchURL = `${this.baseUrl}/search/findByRecipeId?id=${theRecipeId}`;
 

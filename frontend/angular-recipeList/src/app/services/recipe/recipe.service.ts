@@ -10,9 +10,12 @@ import { Ingredient } from '../../common/ingredient';
   providedIn: 'root',
 })
 export class RecipeService {
-  private baseUrl = 'http://localhost:8080/api/recipes';
-  private categoryUrl = 'http://localhost:8080/api/recipe-category';
-  private ingredientBaseUrl = 'http://localhost:8080/api/recipeIngredients';
+  private baseUrl =
+    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipes';
+  private categoryUrl =
+    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipe-category';
+  private ingredientBaseUrl =
+    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipeIngredients';
 
   constructor(private httpClient: HttpClient) {}
 
