@@ -29,4 +29,14 @@ public class UserController {
         return this.userService.getInfo(username);
     }
 
+    @PostMapping("/register")
+    public void register(@RequestBody User user) {
+        //TODO: process POST request
+
+        System.out.println(user);
+        
+        // return this.userService.save(user);
+    }
+    
+
 }

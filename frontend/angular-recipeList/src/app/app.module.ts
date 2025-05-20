@@ -29,11 +29,13 @@ import {
 
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig from './config/my-app-config';
+import { RegisterComponent } from './components/register/register.component';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
+  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'purchase-details', component: PurchaseDetailsComponent },
   { path: 'meal-list/:id', component: MealListComponent },
@@ -61,6 +63,7 @@ const routes: Routes = [
     PurchaseDetailsComponent,
     LoginComponent,
     LoginStatusComponent,
+    RegisterComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginResponse } from '../../common/login-response';
 import { Observable } from 'rxjs';
+import { User } from '../../common/user';
 
 const baseUrl = 'http://localhost:8080/api/users';
 
@@ -14,5 +15,11 @@ export class LoginService {
   login(username: String): Observable<LoginResponse> {
     let url = `${baseUrl}/loginRequest?username=${username}`;
     return this.http.get<LoginResponse>(url);
+  }
+
+  register(request: User): Observable<User> {
+    let url = `${baseUrl}/register`;
+    console.log(request)
+    return this.http.post<User>(url, request);
   }
 }
