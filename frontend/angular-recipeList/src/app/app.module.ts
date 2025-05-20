@@ -34,7 +34,6 @@ const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
-  { path: 'login/callback', component: OktaCallbackComponent },
   { path: 'login', component: LoginComponent },
   { path: 'purchase-details', component: PurchaseDetailsComponent },
   { path: 'meal-list/:id', component: MealListComponent },

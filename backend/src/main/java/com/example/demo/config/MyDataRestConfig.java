@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.demo.entity.Recipe;
 import com.example.demo.entity.RecipeCategory;
@@ -32,11 +34,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
 
-        HttpMethod[] theUnsupportedActions = { HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE };
+        HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
 
-        
-        cors.addMapping("/**").allowedOrigins("https://localhost:4200", "http://localhost:4200").allowedMethods("*").allowedHeaders("*");
-
+        cors.addMapping("/**").allowedOrigins("https://localhost:4200", "http://localhost:4200").allowedMethods("*")
+                .allowedHeaders("*");
         //disable HTTP methods for Product: PUT, POST and DELETE
         config.getExposureConfiguration()
                 .forDomainType(Recipe.class)
@@ -51,6 +52,17 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         //call an internal helper method
         exposeIds(config);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsCongifurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200");
+            }
+        };
     }
 
     private void exposeIds(RepositoryRestConfiguration config) {
