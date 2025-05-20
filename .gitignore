@@ -32,4 +32,4 @@ package-lock.json
 #Environment files
 .env
 frontend/angular-recipeList/.angular/cache/
-frontend/angular-recipeList/dist/
+frontend/resources/
