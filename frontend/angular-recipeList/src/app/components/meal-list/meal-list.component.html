@@ -1,4 +1,4 @@
-<section class="main-content">
+<section class="main-content" *ngIf="showComponent">
   <div class="side">
     <h3>Meal List</h3>
     <div class="mealList">
@@ -19,11 +19,11 @@
           </a>
           <div class="quantity">
             <i class="fa-solid fa-minus" (click)="decreaseQuantity(meal)"></i>
-            {{ meal.quantity }}
+            <span class="mealQuantity">{{ meal.quantity }}</span>
             <i class="fa-solid fa-plus" (click)="increaseQuantity(meal)"></i>
           </div>
           <button
-            (click)="deleteItem(meal.id)"
+            (click)="deleteItem(meal)"
             class="btn btn-dark btn-sm delete"
           >
             Delete

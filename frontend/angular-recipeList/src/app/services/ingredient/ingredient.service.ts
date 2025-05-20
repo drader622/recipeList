@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../../common/ingredient';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IngredientService {
-  private baseUrl =
-    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipeIngredients';
+  private baseUrl = `${environment.apiEndpoint}/recipeIngredients`;
   ingredients: Ingredient[] = [];
 
   constructor(private httpClient: HttpClient) {}

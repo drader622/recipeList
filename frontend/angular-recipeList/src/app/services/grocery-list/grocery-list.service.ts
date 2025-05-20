@@ -8,13 +8,13 @@ import { GroceryListStatusComponent } from '../../components/grocery-list-status
 import { RecipeService } from '../recipe/recipe.service';
 import { IngredientService } from '../ingredient/ingredient.service';
 import { Ingredient } from '../../common/ingredient';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GroceryListService {
-  private baseUrl =
-    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/meal-list';
+  private baseUrl = `${environment.apiEndpoint}/meal-list`;
   groceryListItems: GroceryListItem[] = [];
   mealList: MealListItem[] = [];
   ingredients: Ingredient[] = [];
@@ -63,20 +63,39 @@ export class GroceryListService {
   }
 
   //gets each ingredient from the meal passed and adds each one to the list
-  addIngredientsToTotal(meal: MealListItem) {
-    let url = `http://localhost:8080/api/recipeIngredients/search/findByRecipeId?id=${meal.recipeId}`;
-    this.httpClient.get<GetResponseIngredients>(url).subscribe((val) =>
-      val._embedded.recipeIngredients.forEach((item) => {
-        this.ingredients.push(item);
-        this.addIngredientToList(item);
-      })
-    );
+  addIngredientsToTotal(meal: MealListItem, quantity: number) {
+    let url = `${environment.apiEndpoint}/recipeIngredients/search/findByRecipeId?id=${meal.recipeId}`;
+    while (quantity >= 1) {
+      this.httpClient.get<GetResponseIngredients>(url).subscribe((val) =>
+        val._embedded.recipeIngredients.forEach((item) => {
+          this.ingredients.push(item);
+          this.updateIngredientToList(item, true);
+        })
+      );
+      quantity--;
+    }
+  }
+
+  subtractIngredientsFromTotal(meal: MealListItem, quantity: number) {
+    let url = `${environment.apiEndpoint}/recipeIngredients/search/findByRecipeId?id=${meal.recipeId}`;
+    while (quantity >= 1) {
+      this.httpClient.get<GetResponseIngredients>(url).subscribe((val) =>
+        val._embedded.recipeIngredients.forEach((item) => {
+          // while (quantity >= 1) {
+          this.updateIngredientToList(item, false);
+          // quantity--;
+          // }
+        })
+      );
+      quantity--;
+    }
   }
 
   //adds ingredient to total ingredient list
-  addIngredientToList(theGroceryListItem: GroceryListItem) {
+  updateIngredientToList(theGroceryListItem: GroceryListItem, add: Boolean) {
     let alreadyExistsInList: boolean = false;
     let existingListItem: GroceryListItem = undefined!;
+    let index = -1;
 
     if (this.groceryListItems.length > 0) {
       // find the item in the cart based on item id
@@ -101,16 +120,26 @@ export class GroceryListService {
 
     if (alreadyExistsInList) {
       // increment the quantity
-      let index = -1;
+
       this.groceryListItems.forEach((item, i) => {
         if (theGroceryListItem.name == item.name) {
           index = i;
         }
       });
-      theGroceryListItem.amount =
-        theGroceryListItem.amount + existingListItem.amount;
 
-      this.groceryListItems[index].amount = theGroceryListItem.amount;
+      if (add) {
+        theGroceryListItem.amount =
+          theGroceryListItem.amount + existingListItem.amount;
+      } else {
+        theGroceryListItem.amount =
+          existingListItem.amount - theGroceryListItem.amount;
+      }
+
+      if (theGroceryListItem.amount === 0) {
+        this.groceryListItems.splice(index, 1);
+      } else {
+        this.groceryListItems[index].amount = theGroceryListItem.amount;
+      }
     } else {
       // just add the item to the array
       this.groceryListItems.push(theGroceryListItem);
@@ -118,7 +147,8 @@ export class GroceryListService {
   }
 
   //adds ingredient from recipe to meal list and then computes total ingredients for entire meal list
-  updateMealList(newRecipe: Recipe) {
+  updateMealList(newRecipe: Recipe, add: Boolean) {
+    // if (add) add = false;
     let mealList: MealListItem[] = [];
     this.mealListItem = undefined;
     this.getMealList().subscribe((data) => {
@@ -129,15 +159,31 @@ export class GroceryListService {
       });
 
       if (this.mealListItem) {
-        this.mealListItem.quantity++;
+        if (add) {
+          this.mealListItem.quantity++;
+        } else {
+          this.mealListItem.quantity--;
+        }
+
         this.addMealToList(this.mealListItem).subscribe();
 
         let mealListStatusComp = document.getElementById('quantity');
         let mealListQuantity = mealListStatusComp?.innerText;
-        let newQuantity = Number(mealListQuantity) + 1;
+        let newQuantity = 0;
+        if (add) {
+          newQuantity = Number(mealListQuantity) + 1;
+        } else {
+          newQuantity = Number(mealListQuantity) - 1;
+        }
+
         if (mealListStatusComp)
           mealListStatusComp.innerHTML = newQuantity.toString();
-        this.addIngredientsToTotal(this.mealListItem);
+        if (add) {
+          this.addIngredientsToTotal(this.mealListItem, 1);
+        } else {
+          this.subtractIngredientsFromTotal(this.mealListItem, 1);
+        }
+
         this.computeListTotal();
       } else {
         const newMeal = new MealListItem(
@@ -155,7 +201,7 @@ export class GroceryListService {
         let newQuantity = Number(mealListQuantity) + 1;
         if (mealListStatusComp)
           mealListStatusComp.innerHTML = newQuantity.toString();
-        this.addIngredientsToTotal(newMeal);
+        this.addIngredientsToTotal(newMeal, 1);
       }
     });
   }

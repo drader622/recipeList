@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MealListItem } from '../../common/meal-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { ActivatedRoute } from '@angular/router';
+import { RecipeService } from '../../services/recipe/recipe.service';
 
 @Component({
   selector: 'app-meal-list',
@@ -13,9 +14,11 @@ export class MealListComponent implements OnInit {
   hiddenClass: string = 'hidden';
   showIngredientList: Boolean = false;
   showTotalIngredientList: Boolean = false;
+  showComponent: Boolean = false;
 
   constructor(
     private groceryListService: GroceryListService,
+    private recipeService: RecipeService,
     private route: ActivatedRoute
   ) {}
 
@@ -27,10 +30,12 @@ export class MealListComponent implements OnInit {
       this.showIngredients();
     }
     this.listMealList();
+    this.showComponent = true;
   }
 
   //displays each meal in meal list
   listMealList() {
+    this.mealList = [];
     this.groceryListService.getMealList().subscribe((data) => {
       data.forEach((item) => this.mealList.push(item));
       if (this.mealList.length > 0) {
@@ -41,7 +46,7 @@ export class MealListComponent implements OnInit {
           this.mealList.forEach((meal) => {
             let amountOfMeals = meal.quantity;
             while (amountOfMeals > 0) {
-              this.groceryListService.addIngredientsToTotal(meal);
+              this.groceryListService.addIngredientsToTotal(meal, 1);
               amountOfMeals--;
             }
           });
@@ -51,21 +56,52 @@ export class MealListComponent implements OnInit {
   }
 
   //delete meal from meal list
-  deleteItem(id: number) {
-    this.groceryListService.deleteItemFromList(id).subscribe();
-    location.reload();
+  deleteItem(meal: MealListItem) {
+    this.groceryListService.deleteItemFromList(meal.id).subscribe();
+    setTimeout(() => {
+      this.updateGroceryListAmount(meal.quantity);
+      document.getElementById(meal.id.toString())?.classList.add('hidden');
+      this.groceryListService.subtractIngredientsFromTotal(meal, meal.quantity);
+    }, 100);
   }
 
   //increase quantity of meal on meal list
   increaseQuantity(meal: MealListItem) {
-    this.groceryListService.increaseQuantity(meal).subscribe();
-    location.reload();
+    let quantityComp = document
+      .getElementById(meal.id.toString())
+      ?.querySelector('.mealQuantity');
+    let quantity = Number(quantityComp?.textContent);
+    quantity++;
+    if (quantityComp) quantityComp.textContent = quantity.toString();
+
+    this.groceryListService.increaseQuantity(meal);
+    setTimeout(() => {
+      this.recipeService.getRecipe(meal.recipeId).subscribe((data) => {
+        let recipe = data;
+        this.groceryListService.updateMealList(recipe, true);
+      });
+    }, 100);
   }
 
   //decrease quantity of meal on meal list
   decreaseQuantity(meal: MealListItem) {
-    this.groceryListService.decreaseQuantity(meal).subscribe();
-    location.reload();
+    let quantityComp = document
+      .getElementById(meal.id.toString())
+      ?.querySelector('.mealQuantity');
+    let quantity = Number(quantityComp?.textContent);
+    quantity--;
+    if (quantityComp) quantityComp.textContent = quantity.toString();
+    if (quantity === 0) {
+      this.deleteItem(meal);
+    } else {
+      this.groceryListService.decreaseQuantity(meal);
+      setTimeout(() => {
+        this.recipeService.getRecipe(meal.recipeId).subscribe((data) => {
+          let recipe = data;
+          this.groceryListService.updateMealList(recipe, false);
+        });
+      }, 100);
+    }
   }
 
   //shows ingredients for each meal when the show ingredients button is clicked
@@ -77,7 +113,19 @@ export class MealListComponent implements OnInit {
 
   //shows total ingredients for entire meal list when show total ingredients is clicked
   showTotalIngredients() {
+    this.groceryListService.getTotalIngredients();
+    let component = document.getElementById('ingredientComponent');
+    component?.classList.remove('hidden');
     this.showIngredientList = false;
     this.showTotalIngredientList = true;
+  }
+
+  updateGroceryListAmount(amount: number) {
+    let quantityElement = document.getElementById('quantity');
+    let quantity = Number(quantityElement?.textContent);
+
+    quantity = quantity - amount;
+
+    if (quantityElement) quantityElement.innerHTML = quantity.toString();
   }
 }

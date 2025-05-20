@@ -5,17 +5,15 @@ import { Recipe } from '../../common/recipe';
 import { map } from 'rxjs/operators';
 import { RecipeCategory } from '../../common/recipe-category';
 import { Ingredient } from '../../common/ingredient';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
-  private baseUrl =
-    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipes';
-  private categoryUrl =
-    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipe-category';
-  private ingredientBaseUrl =
-    'http://meal-list-env.eba-23z6rf8y.us-east-1.elasticbeanstalk.com/api/recipeIngredients';
+  private baseUrl = `${environment.apiEndpoint}/recipes`;
+  private categoryUrl = `${environment.apiEndpoint}/recipe-category`;
+  private ingredientBaseUrl = `${environment.apiEndpoint}/recipeIngredients`;
 
   constructor(private httpClient: HttpClient) {}
 

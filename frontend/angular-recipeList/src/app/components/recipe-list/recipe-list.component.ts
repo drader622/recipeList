@@ -41,6 +41,13 @@ export class RecipeListComponent implements OnInit {
       this.listRecipes();
     });
     this.listRecipes();
+    this.groceryListService.getMealList().subscribe(meals => {
+      if (meals.length > 0) {
+        meals.forEach(meal => {
+          this.groceryListService.addIngredientsToTotal(meal, meal.quantity);
+        })
+      }
+    })
   }
   //determines if component was generated from search or not and handles recipes accordingly
   listRecipes() {
@@ -118,6 +125,6 @@ export class RecipeListComponent implements OnInit {
 
   //adds meal to meal list when button is clicked
   addToList(theRecipe: Recipe) {
-    this.groceryListService.updateMealList(theRecipe);
+    this.groceryListService.updateMealList(theRecipe, true);
   }
 }

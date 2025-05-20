@@ -1,3 +1,6 @@
+.hidden {
+  display: none !important;
+}
 .main-content {
   display: flex;
   justify-content: space-evenly;
@@ -39,6 +42,10 @@ h3 {
 }
 .quantity {
   font-size: 1.4rem;
+}
+
+.mealQuantity {
+  margin: 0 .25rem;
 }
 
 i {

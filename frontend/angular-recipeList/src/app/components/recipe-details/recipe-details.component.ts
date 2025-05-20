@@ -45,6 +45,6 @@ export class RecipeDetailsComponent implements OnInit {
 
   //adds meal to meal list when button is clicked
   addToList() {
-    this.groceryListService.updateMealList(this.recipe);
+    this.groceryListService.updateMealList(this.recipe, true);
   }
 }
