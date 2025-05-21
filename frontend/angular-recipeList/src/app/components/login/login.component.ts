@@ -24,17 +24,14 @@ import { RefreshService } from '../../services/refreshService/refresh.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  authorized: boolean = false;
   currentUser: User = new User();
   request: LoginRequest = new LoginRequest();
 
   constructor(
     private loginService: LoginService,
-    private route: ActivatedRoute,
     private refreshService: RefreshService
   ) {}
 
-  // userForm: FormGroup | undefined;
   userForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', [
@@ -47,12 +44,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const formValue = this.userForm.value;
-
-    // if (formValue.username == '' || formValue.password == '') {
-    //   alert('Wrong Credentilas');
-    //   return;
-    // }
-
     this.request.username = formValue.username;
     this.request.password = formValue.password;
     this.authenticate();
@@ -64,7 +55,11 @@ export class LoginComponent implements OnInit {
     this.loginService
       .login(String(this.request.username), String(this.request.password))
       .subscribe((data) => {
-        if (data) this.getUserInfo();
+        if (data) {
+          this.getUserInfo();
+        } else {
+          alert('Wrong Credentials');
+        }
       });
   }
 

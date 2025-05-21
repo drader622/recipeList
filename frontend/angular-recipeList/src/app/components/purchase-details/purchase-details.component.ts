@@ -3,6 +3,8 @@ import { GroceryListService } from '../../services/grocery-list/grocery-list.ser
 import { MealListItem } from '../../common/meal-list-item';
 import { OKTA_AUTH, OktaAuthStateService } from '@okta/okta-angular';
 import { CustomUserClaims, OktaAuth, UserClaims } from '@okta/okta-auth-js';
+import { LoginService } from '../../services/login/login.service';
+import { RefreshService } from '../../services/refreshService/refresh.service';
 
 @Component({
   selector: 'app-purchase-details',
@@ -13,16 +15,15 @@ export class PurchaseDetailsComponent implements OnInit {
   mealList: MealListItem[] = [];
   purchaseTotal: number = 0;
   orderNumber: number = 12334567;
-  name: string = '';
-  email: string = ''; 
-  isAuthenticated: boolean = false;
-  completed: boolean = false;
+  username: string | undefined;
+  email: string | undefined;
+  isAuthenticated: Boolean = false;
   guest: boolean = false;
 
   constructor(
     private groceryListService: GroceryListService,
-    private oktaAuthService: OktaAuthStateService,
-    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth
+    private loginService: LoginService,
+    private refreshService: RefreshService
   ) {}
   ngOnInit(): void {
     this.guest = false;
@@ -64,21 +65,26 @@ export class PurchaseDetailsComponent implements OnInit {
   }
 
   getUser() {
-    this.oktaAuthService.authState$.subscribe((result) => {
-      if (result.isAuthenticated) {
+    this.loginService.getAuthState().subscribe((response) => {
+      this.isAuthenticated = response;
+      this.refreshService.triggerRefresh();
+      if (this.isAuthenticated) {
+        console.log('user is authenticated');
         this.getUserDetails();
       } else {
-        this.name = 'Guest';
+        console.log('no user');
         this.guest = true;
+        this.username = 'Guest';
       }
     });
   }
   getUserDetails() {
     // Fetch the logged in user details
-    this.oktaAuth.getUser().then((res) => {
-      this.name = res.name!;
-      this.email = res.email!;
-      this.completed = true;
-    });
+    if (this.isAuthenticated) {
+      this.loginService.getUser().subscribe((data) => {
+        this.username = data.username;
+        this.email = data.email;
+      });
+    }
   }
 }

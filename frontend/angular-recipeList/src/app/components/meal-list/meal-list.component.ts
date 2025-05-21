@@ -3,6 +3,7 @@ import { MealListItem } from '../../common/meal-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../../services/recipe/recipe.service';
+import { RefreshService } from '../../services/refreshService/refresh.service';
 
 @Component({
   selector: 'app-meal-list',
@@ -19,10 +20,12 @@ export class MealListComponent implements OnInit {
   constructor(
     private groceryListService: GroceryListService,
     private recipeService: RecipeService,
+    private refreshService: RefreshService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.refreshService.triggerRefresh();
     let component = document.getElementById('ingredientComponent');
     component?.classList.add(this.hiddenClass);
     let id = +this.route.snapshot.paramMap.get('id')!;

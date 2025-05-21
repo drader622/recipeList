@@ -18,8 +18,7 @@ export class LoginStatusComponent implements OnInit, OnDestroy {
 
   constructor(
     private loginService: LoginService,
-    private refreshService: RefreshService,
-    private router: Router
+    private refreshService: RefreshService
   ) {}
 
   ngOnInit(): void {

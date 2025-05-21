@@ -18,7 +18,6 @@ export class RegisterComponent {
   constructor(private loginService: LoginService, private router: Router) {}
 
   request: User = new User();
-  // msg: string | undefined;
 
   signupForm: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),

@@ -16,6 +16,5 @@ public class MealListService {
     public void clearTable() {
         mealListRepository.deleteAll();
     }
-;
 
 }

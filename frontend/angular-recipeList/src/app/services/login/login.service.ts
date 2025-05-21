@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginResponse } from '../../common/login-response';
 import { Observable } from 'rxjs';
 import { User } from '../../common/user';
 import { Router } from '@angular/router';
@@ -11,7 +10,6 @@ const baseUrl = 'http://localhost:8080/api/users';
   providedIn: 'root',
 })
 export class LoginService {
-  currentUser: User = new User();
   constructor(private http: HttpClient, private router: Router) {}
 
   login(username: String, password: String): Observable<Boolean> {
@@ -27,7 +25,7 @@ export class LoginService {
 
   register(request: User): Observable<User> {
     let url = `${baseUrl}/register`;
-    console.log(request)
+    console.log(request);
     return this.http.post<User>(url, request);
   }
 

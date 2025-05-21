@@ -4,6 +4,6 @@ export class Ingredient {
     public recipeId: number,
     public name: string,
     public amount: number,
-    public unit: string,
+    public unit: string
   ) {}
 }

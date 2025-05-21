@@ -14,7 +14,6 @@ export class IngredientListComponent implements OnInit {
   ingredient!: Ingredient | null;
 
   ingredients: Ingredient[] = [];
-  currentRecipeId: number = 1;
   recipe!: Recipe;
   mealListPage: boolean = false;
 

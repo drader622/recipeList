@@ -4,9 +4,6 @@ import { MealListItem } from '../../common/meal-list-item';
 import { map, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Recipe } from '../../common/recipe';
-import { GroceryListStatusComponent } from '../../components/grocery-list-status/grocery-list-status.component';
-import { RecipeService } from '../recipe/recipe.service';
-import { IngredientService } from '../ingredient/ingredient.service';
 import { Ingredient } from '../../common/ingredient';
 import { environment } from '../../../environments/environment';
 
@@ -148,7 +145,6 @@ export class GroceryListService {
 
   //adds ingredient from recipe to meal list and then computes total ingredients for entire meal list
   updateMealList(newRecipe: Recipe, add: Boolean) {
-    // if (add) add = false;
     let mealList: MealListItem[] = [];
     this.mealListItem = undefined;
     this.getMealList().subscribe((data) => {

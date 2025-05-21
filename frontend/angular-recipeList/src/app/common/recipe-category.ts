@@ -1,3 +1,3 @@
 export class RecipeCategory {
-    constructor(public id: number, public categoryName: string) { }
+  constructor(public id: number, public categoryName: string) {}
 }

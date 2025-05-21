@@ -4,10 +4,7 @@ import { Recipe } from '../../common/recipe';
 import { ActivatedRoute } from '@angular/router';
 import { Ingredient } from '../../common/ingredient';
 import { IngredientService } from '../../services/ingredient/ingredient.service';
-import { GroceryListItem } from '../../common/grocery-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
-import { MealListItem } from '../../common/meal-list-item';
-import { GroceryListStatusComponent } from '../grocery-list-status/grocery-list-status.component';
 import { RefreshService } from '../../services/refreshService/refresh.service';
 
 @Component({
@@ -16,7 +13,6 @@ import { RefreshService } from '../../services/refreshService/refresh.service';
   styleUrl: './recipe-list.component.css',
 })
 export class RecipeListComponent implements OnInit {
-
   recipes: Recipe[] = [];
   ingredients: Ingredient[] = [];
   currentCategoryId: number = 1;
@@ -26,13 +22,9 @@ export class RecipeListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
   previousKeyword: string = '';
-  mealListItem: any;
-  newId = 0;
-  totalMeals: number = 0;
 
   constructor(
     private recipeService: RecipeService,
-    private ingredientService: IngredientService,
     private groceryListService: GroceryListService,
     private route: ActivatedRoute,
     private refreshService: RefreshService
@@ -41,14 +33,13 @@ export class RecipeListComponent implements OnInit {
   ngOnInit(): void {
     this.listRecipes();
     this.refreshService.triggerRefresh();
-    this.groceryListService.getMealList().subscribe(meals => {
-      
+    this.groceryListService.getMealList().subscribe((meals) => {
       if (meals.length > 0) {
-        meals.forEach(meal => {
+        meals.forEach((meal) => {
           this.groceryListService.addIngredientsToTotal(meal, meal.quantity);
-        })
+        });
       }
-    })
+    });
   }
   //determines if component was generated from search or not and handles recipes accordingly
   listRecipes() {
@@ -81,7 +72,7 @@ export class RecipeListComponent implements OnInit {
       .subscribe(this.processResult());
   }
 
-  //displays list of recipes in a paginated list 
+  //displays list of recipes in a paginated list
   handleListRecipes() {
     // check if "id" param is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');

@@ -22,11 +22,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    // @PostMapping("/api/users")
-    // public User createUser(@RequestBody User user) {
-    //     return this.userService.save(user);
-    // }
-
     @GetMapping("/loginRequest")
     public Boolean checkUserAuth(@RequestParam String username, @RequestParam String password) {
         LoginResponse isAuthenticated = this.userService.checkAuth(username, password);
@@ -51,8 +46,6 @@ public class UserController {
 
     @PostMapping("/register")
     public void register(@RequestBody User user) {
-        System.out.println(user);
-
         this.userService.save(user);
     }
 

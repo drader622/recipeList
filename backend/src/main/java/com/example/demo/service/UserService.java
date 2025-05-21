@@ -10,6 +10,7 @@ import com.example.demo.entity.User;
 
 @Service
 public class UserService {
+
     UserRepository userRepository;
 
     PasswordEncoder passwordEncoder;
