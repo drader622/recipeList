@@ -10,6 +10,7 @@ import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -25,8 +26,10 @@ public class UserController {
     }
 
     @GetMapping("/loginRequest")
-    public LoginResponse getUserInfo(String username) {
-        return this.userService.getInfo(username);
+    public LoginResponse checkUserAuth(@RequestParam String username, @RequestParam String password) {
+        System.out.println("UserController username " + username);
+        System.out.println("UserController password " + password);
+        return this.userService.checkAuth(username, password);
     }
 
     @PostMapping("/register")
@@ -34,9 +37,8 @@ public class UserController {
         //TODO: process POST request
 
         System.out.println(user);
-        
+
         // return this.userService.save(user);
     }
-    
 
 }

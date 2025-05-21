@@ -8,6 +8,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import myAppConfig from '../../config/my-app-config';
 import { LoginService } from '../../services/login/login.service';
+import { User } from '../../common/user';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,9 @@ import { LoginService } from '../../services/login/login.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
+  authorized: boolean = false;
+  currentUser: User = new User();
+
   constructor(private loginService: LoginService) {}
 
   userForm: FormGroup = new FormGroup({
@@ -26,14 +30,16 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.login();
+    // this.login();
   }
 
   // router = inject(Router);
   // request: LoginRequest = new LoginRequest();
 
   login() {
-    this.loginService.login('user1').subscribe((data) => console.log(data));
+    this.loginService.login("user1", "P4ssword").subscribe((data) => {
+      console.log(data.response);
+    });
     // this.storage.remove('auth-key');
 
     // const formValue = this.userForm.value;
@@ -69,5 +75,9 @@ export class LoginComponent implements OnInit {
     //     this.storage.remove('auth-key');
     //   },
     // });
+  }
+
+  isAuthenticated() {
+    
   }
 }

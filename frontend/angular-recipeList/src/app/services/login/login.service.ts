@@ -12,8 +12,8 @@ const baseUrl = 'http://localhost:8080/api/users';
 export class LoginService {
   constructor(private http: HttpClient) {}
 
-  login(username: String): Observable<LoginResponse> {
-    let url = `${baseUrl}/loginRequest?username=${username}`;
+  login(username: String, password: String): Observable<LoginResponse> {
+    let url = `${baseUrl}/loginRequest?username=${username}&password=${password}`;
     return this.http.get<LoginResponse>(url);
   }
 

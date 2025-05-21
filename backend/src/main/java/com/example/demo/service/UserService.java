@@ -26,14 +26,15 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public LoginResponse getInfo(String username) {
+    public LoginResponse checkAuth(String username, String passAttempt) {
         User user = this.userRepository.findByUsername(username);
         LoginResponse loginResponse = new LoginResponse();
 
-        String tempPassword = "P4ssword";
-        String password = user.getPassword();
+        String decodedPass = user.getPassword();
 
-        boolean isMatch = passwordEncoder.matches(tempPassword, password);
+        // String passAttempt = "P4ssword";
+
+        boolean isMatch = passwordEncoder.matches(passAttempt, decodedPass);
         loginResponse.setResponse(isMatch);
 
         return loginResponse;
