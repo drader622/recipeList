@@ -10,16 +10,27 @@ const baseUrl = 'http://localhost:8080/api/users';
   providedIn: 'root',
 })
 export class LoginService {
+  currentUser: User = new User();
   constructor(private http: HttpClient) {}
 
-  login(username: String, password: String): Observable<Number> {
+  login(username: String, password: String): Observable<number> {
     let url = `${baseUrl}/loginRequest?username=${username}&password=${password}`;
-    return this.http.get<Number>(url);
+    return this.http.get<number>(url);
   }
 
   register(request: User): Observable<User> {
     let url = `${baseUrl}/register`;
     console.log(request)
     return this.http.post<User>(url, request);
+  }
+
+  getUser(id: number) {
+    let url = `${baseUrl}/userInfo?id=${id}`;
+    return this.http.get<User>(url);
+  }
+
+  getAuthState() {
+    let url = `${baseUrl}/authState`;
+    return this.http.get<Boolean>(url);
   }
 }

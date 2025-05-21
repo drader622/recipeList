@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+
     Long userId = (long) -1;
 
     @Autowired
@@ -37,14 +38,21 @@ public class UserController {
         if (isAuthenticated.getResponse()) {
             userId = this.userService.getUserId();
             System.out.println(userId);
+        } else {
+            userId = (long) -1;
         }
 
         return userId;
     }
 
-    @GetMapping("userInfo")
+    @GetMapping("/userInfo")
     public Optional<User> getUserInfo(@RequestParam Long id) {
-        return this.userService.getUserInfo(id);
+        return this.userService.getUserInfo((long) id);
+    }
+
+    @GetMapping("/authState")
+    public Boolean getAuthState() {
+        return this.userService.getAuthStatus();
     }
     
 

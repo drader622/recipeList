@@ -20,6 +20,7 @@ import { Form } from '@okta/okta-signin-widget/types/packages/@okta/courage-dist
 export class LoginComponent implements OnInit {
   authorized: boolean = false;
   currentUser: User = new User();
+  request: LoginRequest = new LoginRequest();
 
   constructor(private loginService: LoginService) {}
 
@@ -32,9 +33,7 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     const formValue = this.userForm.value;
@@ -46,21 +45,29 @@ export class LoginComponent implements OnInit {
 
     this.request.username = formValue.username;
     this.request.password = formValue.password;
-
-    console.log(this.request.username, this.request.password)
     this.authenticate();
   }
 
-  // router = inject(Router);
-  request: LoginRequest = new LoginRequest();
+  router = inject(Router);
 
   authenticate() {
-    this.loginService.login(String(this.request.username), String(this.request.password)).subscribe((data) => {
-      console.log(data);
-    });
+    let userId = -1;
+    this.loginService
+      .login(String(this.request.username), String(this.request.password))
+      .subscribe((data) => {
+        console.log(data);
+        userId = data;
+        if (userId > 0) {
+          this.getUserInfo(userId);
+          this.router.navigateByUrl('/');
+        }
+      });
   }
 
-  getUserInfo() {
-
+  getUserInfo(userId: number) {
+    this.loginService.getUser(userId).subscribe((data) => {
+      console.log(data);
+      this.currentUser = data;
+    });
   }
 }

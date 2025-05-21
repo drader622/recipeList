@@ -18,6 +18,8 @@ public class UserService {
 
     User loggedInUser;
 
+    Boolean isAuthenticated = false;
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
@@ -31,6 +33,7 @@ public class UserService {
     }
 
     public LoginResponse checkAuth(String username, String passAttempt) {
+        this.isAuthenticated = false;
         User user = this.userRepository.findByUsername(username);
         LoginResponse loginResponse = new LoginResponse();
 
@@ -41,6 +44,7 @@ public class UserService {
 
         if (loginResponse.getResponse()) {
             this.loggedInUser = user;
+            this.isAuthenticated = true;
         }
 
         return loginResponse;
@@ -51,7 +55,10 @@ public class UserService {
     }
 
     public Optional<User> getUserInfo(Long id) {
-        // System.out.println(this.loggedInUser.getid);
         return this.userRepository.findById(id);
+    }
+
+    public Boolean getAuthStatus() {
+        return this.isAuthenticated;
     }
 }

@@ -9,17 +9,21 @@ import { LoginService } from '../../services/login/login.service';
   styleUrl: './login-status.component.css',
 })
 export class LoginStatusComponent implements OnInit {
-  isAuthenticated: boolean = false;
+  isAuthenticated: Boolean = false;
   userFullName: string = '';
 
-  constructor(
-    private loginService: LoginService
-  ) {}
+  constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {
     // subscribe to authentication state changes
-    
-    
+    this.loginService.getAuthState().subscribe((response) => {
+      this.isAuthenticated = response;
+      if (this.isAuthenticated) {
+        console.log('user is authenticated');
+      } else {
+        console.log('no user');
+      }
+    });
   }
   getUserDetails() {
     if (this.isAuthenticated) {
@@ -28,6 +32,5 @@ export class LoginStatusComponent implements OnInit {
 
   logout() {
     // Terminates the session with Okta and removes current tokens
-    
   }
 }
