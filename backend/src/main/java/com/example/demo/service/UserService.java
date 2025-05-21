@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class UserService {
     UserRepository userRepository;
 
     PasswordEncoder passwordEncoder;
+
+    User loggedInUser;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -32,11 +36,22 @@ public class UserService {
 
         String decodedPass = user.getPassword();
 
-        // String passAttempt = "P4ssword";
-
         boolean isMatch = passwordEncoder.matches(passAttempt, decodedPass);
         loginResponse.setResponse(isMatch);
 
+        if (loginResponse.getResponse()) {
+            this.loggedInUser = user;
+        }
+
         return loginResponse;
+    }
+
+    public Long getUserId() {
+        return this.loggedInUser.getId();
+    }
+
+    public Optional<User> getUserInfo(Long id) {
+        // System.out.println(this.loggedInUser.getid);
+        return this.userRepository.findById(id);
     }
 }

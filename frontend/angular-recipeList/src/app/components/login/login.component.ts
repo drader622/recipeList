@@ -9,6 +9,8 @@ import { Router, RouterLink } from '@angular/router';
 import myAppConfig from '../../config/my-app-config';
 import { LoginService } from '../../services/login/login.service';
 import { User } from '../../common/user';
+import { LoginRequest } from '../../common/login-request';
+import { Form } from '@okta/okta-signin-widget/types/packages/@okta/courage-dist/types';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService) {}
 
+  // userForm: FormGroup | undefined;
   userForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', [
@@ -30,54 +33,34 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    // this.login();
+
   }
 
-  // router = inject(Router);
-  // request: LoginRequest = new LoginRequest();
-
-  login() {
-    this.loginService.login("user1", "P4ssword").subscribe((data) => {
-      console.log(data.response);
-    });
-    // this.storage.remove('auth-key');
-
-    // const formValue = this.userForm.value;
+  onSubmit() {
+    const formValue = this.userForm.value;
 
     // if (formValue.username == '' || formValue.password == '') {
     //   alert('Wrong Credentilas');
     //   return;
     // }
 
-    // this.request.username = formValue.username;
-    // this.request.password = formValue.password;
+    this.request.username = formValue.username;
+    this.request.password = formValue.password;
 
-    // this.integration.doLogin(this.request).subscribe({
-    //   next: (res) => {
-    //     console.log('Received Response:' + res.token);
-
-    //     this.storage.set('auth-key', res.token);
-
-    //     this.integration.dashboard().subscribe({
-    //       next: (dashboardres) => {
-    //         console.log('Dashboard res:' + dashboardres.response);
-
-    //         this.router.navigateByUrl('dashboard');
-    //       },
-    //       error: (err) => {
-    //         console.log('Dashboard error received :' + err);
-    //         this.storage.remove('auth-key');
-    //       },
-    //     });
-    //   },
-    //   error: (err) => {
-    //     console.log('Error Received Response:' + err);
-    //     this.storage.remove('auth-key');
-    //   },
-    // });
+    console.log(this.request.username, this.request.password)
+    this.authenticate();
   }
 
-  isAuthenticated() {
-    
+  // router = inject(Router);
+  request: LoginRequest = new LoginRequest();
+
+  authenticate() {
+    this.loginService.login(String(this.request.username), String(this.request.password)).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  getUserInfo() {
+
   }
 }

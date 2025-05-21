@@ -12,9 +12,9 @@ const baseUrl = 'http://localhost:8080/api/users';
 export class LoginService {
   constructor(private http: HttpClient) {}
 
-  login(username: String, password: String): Observable<LoginResponse> {
+  login(username: String, password: String): Observable<Number> {
     let url = `${baseUrl}/loginRequest?username=${username}&password=${password}`;
-    return this.http.get<LoginResponse>(url);
+    return this.http.get<Number>(url);
   }
 
   register(request: User): Observable<User> {

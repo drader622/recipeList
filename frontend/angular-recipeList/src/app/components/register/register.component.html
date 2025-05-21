@@ -10,7 +10,7 @@
         <span>Already have an account? <a routerLink="/login">Sign In</a></span>
     </div>
 
-    <form class="form-group" formGroup="signupForm" (ngSubmit)="onSubmit()">
+    <form class="form-group" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 
         <input type="text" name="name" placeholder="Name" formControlName="name">
 

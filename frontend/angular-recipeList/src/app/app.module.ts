@@ -30,6 +30,7 @@ import {
 import { OktaAuth } from '@okta/okta-auth-js';
 import myAppConfig from './config/my-app-config';
 import { RegisterComponent } from './components/register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -72,8 +73,12 @@ const routes: Routes = [
     AppRoutingModule,
     NgbModule,
     OktaAuthModule,
+    ReactiveFormsModule,
   ],
   providers: [RecipeService, { provide: OKTA_CONFIG, useValue: { oktaAuth } }],
   bootstrap: [AppComponent],
+  exports: [
+    ReactiveFormsModule
+  ]
 })
 export class AppModule {}

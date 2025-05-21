@@ -11,8 +11,8 @@ import { User } from '../../common/user';
 export class RegisterComponent {
   constructor(private loginService: LoginService) {}
 
-  request: User = new User();
-  msg: string | undefined;
+  // request: User = new User();
+  // msg: string | undefined;
 
   signupForm: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -21,13 +21,13 @@ export class RegisterComponent {
   });
 
   public onSubmit() {
-    const formValue = this.signupForm.value;
+    // const formValue = this.signupForm.value;
 
-    this.request.email = formValue.email;
-    this.request.username = formValue.username;
-    this.request.password = formValue.password;
+    // this.request.email = formValue.email;
+    // this.request.username = formValue.username;
+    // this.request.password = formValue.password;
 
-    this.loginService.register(this.request).subscribe();
+    // this.loginService.register(this.request).subscribe();
 
     // if (this.signupForm.valid) {
     //   console.log('Form is valid');

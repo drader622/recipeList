@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+    Long userId = (long) -1;
 
     @Autowired
     UserService userService;
@@ -26,11 +29,24 @@ public class UserController {
     }
 
     @GetMapping("/loginRequest")
-    public LoginResponse checkUserAuth(@RequestParam String username, @RequestParam String password) {
+    public Long checkUserAuth(@RequestParam String username, @RequestParam String password) {
         System.out.println("UserController username " + username);
         System.out.println("UserController password " + password);
-        return this.userService.checkAuth(username, password);
+        LoginResponse isAuthenticated = this.userService.checkAuth(username, password);
+
+        if (isAuthenticated.getResponse()) {
+            userId = this.userService.getUserId();
+            System.out.println(userId);
+        }
+
+        return userId;
     }
+
+    @GetMapping("userInfo")
+    public Optional<User> getUserInfo(@RequestParam Long id) {
+        return this.userService.getUserInfo(id);
+    }
+    
 
     @PostMapping("/register")
     public void register(@RequestBody User user) {
