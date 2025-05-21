@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { LoginResponse } from '../../common/login-response';
 import { Observable } from 'rxjs';
 import { User } from '../../common/user';
+import { Router } from '@angular/router';
 
 const baseUrl = 'http://localhost:8080/api/users';
 
@@ -11,11 +12,17 @@ const baseUrl = 'http://localhost:8080/api/users';
 })
 export class LoginService {
   currentUser: User = new User();
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  login(username: String, password: String): Observable<number> {
+  login(username: String, password: String): Observable<Boolean> {
     let url = `${baseUrl}/loginRequest?username=${username}&password=${password}`;
-    return this.http.get<number>(url);
+    return this.http.get<Boolean>(url);
+  }
+
+  logout() {
+    console.log('success');
+    let url = `${baseUrl}/logout`;
+    return this.http.post<Boolean>(url, '');
   }
 
   register(request: User): Observable<User> {

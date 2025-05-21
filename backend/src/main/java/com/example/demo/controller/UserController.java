@@ -22,22 +22,15 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/api/users")
-    public User createUser(@RequestBody User user) {
-        return this.userService.save(user);
-    }
+    // @PostMapping("/api/users")
+    // public User createUser(@RequestBody User user) {
+    //     return this.userService.save(user);
+    // }
 
     @GetMapping("/loginRequest")
-    public Long checkUserAuth(@RequestParam String username, @RequestParam String password) {
+    public Boolean checkUserAuth(@RequestParam String username, @RequestParam String password) {
         LoginResponse isAuthenticated = this.userService.checkAuth(username, password);
-
-        if (isAuthenticated.getResponse()) {
-            userId = this.userService.getUserId();
-        } else {
-            userId = (long) -1;
-        }
-
-        return userId;
+        return isAuthenticated.getResponse();
     }
 
     @GetMapping("/userInfo")
@@ -49,21 +42,18 @@ public class UserController {
     public Boolean getAuthState() {
         return this.userService.getAuthStatus();
     }
-    
+
     @PostMapping("/logout")
     public void logout() {
         this.userService.logout();
-        
+
     }
-    
 
     @PostMapping("/register")
     public void register(@RequestBody User user) {
-        //TODO: process POST request
-
         System.out.println(user);
 
-        // return this.userService.save(user);
+        this.userService.save(user);
     }
 
 }

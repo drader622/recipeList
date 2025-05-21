@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { LoginService } from '../../services/login/login.service';
 import { User } from '../../common/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,9 +15,9 @@ import { User } from '../../common/user';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
-  // request: User = new User();
+  request: User = new User();
   // msg: string | undefined;
 
   signupForm: FormGroup = new FormGroup({
@@ -21,29 +27,16 @@ export class RegisterComponent {
   });
 
   public onSubmit() {
-    // const formValue = this.signupForm.value;
+    const formValue = this.signupForm.value;
 
-    // this.request.email = formValue.email;
-    // this.request.username = formValue.username;
-    // this.request.password = formValue.password;
+    this.request.email = formValue.email;
+    this.request.username = formValue.username;
+    this.request.password = formValue.password;
 
-    // this.loginService.register(this.request).subscribe();
+    console.log(formValue);
 
-    // if (this.signupForm.valid) {
-    //   console.log('Form is valid');
-
-    //   this.loginService.register(this.request).subscribe({
-    //     next: (res) => {
-    //       console.log(res.email);
-
-    //       this.msg = res.email;
-    //     },
-    //     error: (err) => {
-    //       console.log('Error Received:', err);
-    //     },
-    //   });
-    // } else {
-    //   console.log('On submit failed.');
-    // }
+    this.loginService.register(this.request).subscribe(() => {
+      this.router.navigateByUrl('/login');
+    });
   }
 }

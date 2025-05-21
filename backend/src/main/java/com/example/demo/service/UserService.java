@@ -61,6 +61,7 @@ public class UserService {
     }
 
     public void logout() {
-        System.out.println(loggedInUser);
+        this.loggedInUser = new User();
+        this.isAuthenticated = false;
     }
 }

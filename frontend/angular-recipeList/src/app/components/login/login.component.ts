@@ -61,14 +61,10 @@ export class LoginComponent implements OnInit {
   router = inject(Router);
 
   authenticate() {
-    let userId = -1;
     this.loginService
       .login(String(this.request.username), String(this.request.password))
       .subscribe((data) => {
-        userId = data;
-        if (userId > 0) {
-          this.getUserInfo();
-        }
+        if (data) this.getUserInfo();
       });
   }
 

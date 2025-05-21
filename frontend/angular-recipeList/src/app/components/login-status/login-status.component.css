@@ -8,6 +8,7 @@
   -moz-border-radius: 3px;
   border-radius: 43px;
   background: #205b8d;
+  transition: 0.5s;
 }
 
 .security-btn:hover {
@@ -28,18 +29,26 @@
   transition: all 0.5s ease;
 }
 
-@media (max-width: 1150px) {
-    .login-status-header {
-        font-size: .8rem;
-    }
+.username {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+@media (max-width: 1170px) {
+  .login-status-header {
+    font-size: 0.8rem;
+  }
+  .username {
+    font-size: .8rem;
+  }
   .security-btn {
-    min-width:  95px;
+    min-width: 95px;
     font-size: 1rem;
   }
 }
 
-@media (max-width:820px) {
-    .login-status-user-info {
-        display: none;
-    }
+@media (max-width: 820px) {
+  .login-status-user-info {
+    display: none;
+  }
 }

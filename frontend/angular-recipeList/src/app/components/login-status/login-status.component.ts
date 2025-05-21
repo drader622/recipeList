@@ -4,6 +4,7 @@ import { OktaAuth } from '@okta/okta-auth-js';
 import { LoginService } from '../../services/login/login.service';
 import { RefreshService } from '../../services/refreshService/refresh.service';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-status',
@@ -17,7 +18,8 @@ export class LoginStatusComponent implements OnInit, OnDestroy {
 
   constructor(
     private loginService: LoginService,
-    private refreshService: RefreshService
+    private refreshService: RefreshService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,9 @@ export class LoginStatusComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    // Terminates the session with Okta and removes current tokens
+    this.loginService.logout().subscribe((data) => {
+      this.refreshService.triggerRefresh();
+    });
   }
 
   ngOnDestroy() {
