@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,13 +29,10 @@ public class UserController {
 
     @GetMapping("/loginRequest")
     public Long checkUserAuth(@RequestParam String username, @RequestParam String password) {
-        System.out.println("UserController username " + username);
-        System.out.println("UserController password " + password);
         LoginResponse isAuthenticated = this.userService.checkAuth(username, password);
 
         if (isAuthenticated.getResponse()) {
             userId = this.userService.getUserId();
-            System.out.println(userId);
         } else {
             userId = (long) -1;
         }
@@ -46,13 +41,19 @@ public class UserController {
     }
 
     @GetMapping("/userInfo")
-    public Optional<User> getUserInfo(@RequestParam Long id) {
-        return this.userService.getUserInfo((long) id);
+    public User getUserInfo() {
+        return this.userService.getUserInfo();
     }
 
     @GetMapping("/authState")
     public Boolean getAuthState() {
         return this.userService.getAuthStatus();
+    }
+    
+    @PostMapping("/logout")
+    public void logout() {
+        this.userService.logout();
+        
     }
     
 

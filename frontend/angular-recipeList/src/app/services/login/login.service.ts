@@ -24,8 +24,8 @@ export class LoginService {
     return this.http.post<User>(url, request);
   }
 
-  getUser(id: number) {
-    let url = `${baseUrl}/userInfo?id=${id}`;
+  getUser() {
+    let url = `${baseUrl}/userInfo`;
     return this.http.get<User>(url);
   }
 

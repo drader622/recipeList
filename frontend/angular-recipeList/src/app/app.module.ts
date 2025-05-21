@@ -37,6 +37,7 @@ const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
+  { path: 'login-status', component: LoginStatusComponent },
   { path: 'login', component: LoginComponent },
   { path: 'purchase-details', component: PurchaseDetailsComponent },
   { path: 'meal-list/:id', component: MealListComponent },

@@ -8,6 +8,7 @@ import { GroceryListItem } from '../../common/grocery-list-item';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { MealListItem } from '../../common/meal-list-item';
 import { GroceryListStatusComponent } from '../grocery-list-status/grocery-list-status.component';
+import { RefreshService } from '../../services/refreshService/refresh.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -33,15 +34,15 @@ export class RecipeListComponent implements OnInit {
     private recipeService: RecipeService,
     private ingredientService: IngredientService,
     private groceryListService: GroceryListService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private refreshService: RefreshService
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(() => {
-      this.listRecipes();
-    });
     this.listRecipes();
+    this.refreshService.triggerRefresh();
     this.groceryListService.getMealList().subscribe(meals => {
+      
       if (meals.length > 0) {
         meals.forEach(meal => {
           this.groceryListService.addIngredientsToTotal(meal, meal.quantity);

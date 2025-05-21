@@ -1,7 +1,5 @@
 package com.example.demo.service;
 
-import java.util.Optional;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -54,11 +52,15 @@ public class UserService {
         return this.loggedInUser.getId();
     }
 
-    public Optional<User> getUserInfo(Long id) {
-        return this.userRepository.findById(id);
+    public User getUserInfo() {
+        return loggedInUser;
     }
 
     public Boolean getAuthStatus() {
         return this.isAuthenticated;
+    }
+
+    public void logout() {
+        System.out.println(loggedInUser);
     }
 }

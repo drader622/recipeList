@@ -5,12 +5,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  UrlSegment,
+} from '@angular/router';
 import myAppConfig from '../../config/my-app-config';
 import { LoginService } from '../../services/login/login.service';
 import { User } from '../../common/user';
 import { LoginRequest } from '../../common/login-request';
 import { Form } from '@okta/okta-signin-widget/types/packages/@okta/courage-dist/types';
+import { RefreshService } from '../../services/refreshService/refresh.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +28,11 @@ export class LoginComponent implements OnInit {
   currentUser: User = new User();
   request: LoginRequest = new LoginRequest();
 
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private route: ActivatedRoute,
+    private refreshService: RefreshService
+  ) {}
 
   // userForm: FormGroup | undefined;
   userForm: FormGroup = new FormGroup({
@@ -55,19 +65,21 @@ export class LoginComponent implements OnInit {
     this.loginService
       .login(String(this.request.username), String(this.request.password))
       .subscribe((data) => {
-        console.log(data);
         userId = data;
         if (userId > 0) {
-          this.getUserInfo(userId);
-          this.router.navigateByUrl('/');
+          this.getUserInfo();
         }
       });
   }
 
-  getUserInfo(userId: number) {
-    this.loginService.getUser(userId).subscribe((data) => {
-      console.log(data);
+  getUserInfo() {
+    this.loginService.getUser().subscribe((data) => {
+      this.router.navigateByUrl('/recipes');
       this.currentUser = data;
     });
+  }
+
+  reloadComponentB() {
+    this.refreshService.triggerRefresh();
   }
 }
