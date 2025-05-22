@@ -29,17 +29,14 @@ export class LoginStatusComponent implements OnInit, OnDestroy {
         this.loginService.getAuthState().subscribe((response) => {
           this.isAuthenticated = response;
           if (this.isAuthenticated) {
-            console.log('user is authenticated');
             this.getUserDetails();
-          } else {
-            console.log('no user');
           }
         });
       });
   }
   getUserDetails() {
     if (this.isAuthenticated) {
-      this.loginService.getUser().subscribe((data) => {
+      this.loginService.getUserInfo().subscribe((data) => {
         this.username = data.username;
       });
     }

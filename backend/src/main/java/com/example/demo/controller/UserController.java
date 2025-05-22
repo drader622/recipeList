@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dao.UserRepository;
 import com.example.demo.entity.LoginResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
@@ -19,6 +20,8 @@ public class UserController {
 
     Long userId = (long) -1;
 
+    UserRepository userRepository;
+
     @Autowired
     UserService userService;
 
@@ -31,6 +34,11 @@ public class UserController {
     @GetMapping("/userInfo")
     public User getUserInfo() {
         return this.userService.getUserInfo();
+    }
+
+    @GetMapping("/checkForUser")
+    public Boolean checkForUser(@RequestParam String username) {
+        return this.userService.checkForUser(username);
     }
 
     @GetMapping("/authState")

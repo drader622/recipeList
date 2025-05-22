@@ -18,18 +18,21 @@ export class LoginService {
   }
 
   logout() {
-    console.log('success');
     let url = `${baseUrl}/logout`;
     return this.http.post<Boolean>(url, '');
   }
 
   register(request: User): Observable<User> {
     let url = `${baseUrl}/register`;
-    console.log(request);
     return this.http.post<User>(url, request);
   }
 
-  getUser() {
+  checkForUser(username: String) {
+    let url = `${baseUrl}/checkForUser?username=${username}`;
+    return this.http.get<Boolean>(url);
+  }
+
+  getUserInfo() {
     let url = `${baseUrl}/userInfo`;
     return this.http.get<User>(url);
   }

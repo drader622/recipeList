@@ -32,8 +32,6 @@ export class RegisterComponent {
     this.request.username = formValue.username;
     this.request.password = formValue.password;
 
-    console.log(formValue);
-
     this.loginService.register(this.request).subscribe(() => {
       this.router.navigateByUrl('/login');
     });

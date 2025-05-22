@@ -49,6 +49,15 @@ public class UserService {
         return loginResponse;
     }
 
+    public Boolean checkForUser(String username) {
+        User user = this.userRepository.findByUsername(username);
+
+        if (user != null) {
+            return true;
+        }
+        return false;
+    }
+
     public Long getUserId() {
         return this.loggedInUser.getId();
     }

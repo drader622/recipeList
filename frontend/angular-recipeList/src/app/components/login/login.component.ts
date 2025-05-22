@@ -53,10 +53,18 @@ export class LoginComponent implements OnInit {
 
   authenticate() {
     this.loginService
-      .login(String(this.request.username), String(this.request.password))
-      .subscribe((data) => {
-        if (data) {
-          this.getUserInfo();
+      .checkForUser(String(this.request.username))
+      .subscribe((userExists) => {
+        if (userExists) {
+          this.loginService
+            .login(String(this.request.username), String(this.request.password))
+            .subscribe((passwordCorrect) => {
+              if (passwordCorrect && userExists) {
+                this.getUserInfo();
+              } else {
+                alert('Wrong Credentials');
+              }
+            });
         } else {
           alert('Wrong Credentials');
         }
@@ -64,7 +72,7 @@ export class LoginComponent implements OnInit {
   }
 
   getUserInfo() {
-    this.loginService.getUser().subscribe((data) => {
+    this.loginService.getUserInfo().subscribe((data) => {
       this.router.navigateByUrl('/recipes');
       this.currentUser = data;
     });

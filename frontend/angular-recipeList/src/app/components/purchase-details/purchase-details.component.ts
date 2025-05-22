@@ -81,7 +81,7 @@ export class PurchaseDetailsComponent implements OnInit {
   getUserDetails() {
     // Fetch the logged in user details
     if (this.isAuthenticated) {
-      this.loginService.getUser().subscribe((data) => {
+      this.loginService.getUserInfo().subscribe((data) => {
         this.username = data.username;
         this.email = data.email;
       });
