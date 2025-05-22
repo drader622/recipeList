@@ -1,12 +1,14 @@
 package com.example.demo.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class LoginResponse {
 
     private Boolean response;
 
+    public Boolean getResponse() {
+        return response;
+    }
+
+    public void setResponse(Boolean response) {
+        this.response = response;
+    }
 }

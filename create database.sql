@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: meals
+-- Host: localhost    Database: meals
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -52,7 +52,7 @@ CREATE TABLE `meal_list` (
   `recipe_name` varchar(45) DEFAULT NULL,
   `quantity` int DEFAULT NULL,
   PRIMARY KEY (`meal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=319 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +209,7 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (6,'admin','admin@admin','$2a$10$a4GaMHPGFNcO1jfCRNAd8ePdVCuvvK8Aw4hHIFOnlvRbgNeLuUTu2');
+INSERT INTO `users` VALUES (6,'admin','admin@admin','$2a$10$a4GaMHPGFNcO1jfCRNAd8ePdVCuvvK8Aw4hHIFOnlvRbgNeLuUTu2'),(7,'admin1','admin1@admin1','$2a$10$LX6uQuvh89xVt11BpnyH7.ibi060lTVVjagUaQm17p1GnnnascJSu'),(8,'admin2','admin2@admin2','$2a$10$BYThRuV5sJGYoPHk2.I7w.L6dNFQcD1KOMwqRtthDNERhHje8FiUe');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,4 +256,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-21  5:55:57
+-- Dump completed on 2025-05-21 23:16:34

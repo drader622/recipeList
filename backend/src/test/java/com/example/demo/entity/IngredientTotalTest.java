@@ -1,14 +1,14 @@
 package com.example.demo.entity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestReporter;
 
 class IngredientTotalTest {
+
     ArrayList<RecipeIngredient> ingredients = new ArrayList<>();
     ArrayList<RecipeIngredient> baseIngredientList = new ArrayList<>();
     RecipeIngredient newIngredient = new RecipeIngredient();
@@ -43,15 +43,23 @@ class IngredientTotalTest {
         newIngredient = new RecipeIngredient(4, 1, "Buttermilk-Dill Seasoning", 3.5, "tsp");
         checkList(newIngredient);
 
-        assertEquals(ingredients, baseIngredientList);
+        assertThat(ingredients)
+                .usingRecursiveComparison()
+                .ignoringFields("id")
+                .isEqualTo(baseIngredientList);
+
         testReporter.publishEntry("testAddIngredients() proved that ArrayList<RecipeIngredient> ingredients equals ArrayList<RecipeIngredient> baseIngredientList");
     }
 
     private void checkList(RecipeIngredient newIngredient) {
         RecipeIngredient mealListItem = new RecipeIngredient();
-        int index;
+        int index = -1;
 
-        index = ingredients.indexOf(newIngredient);
+        for (int i = 0; i < ingredients.size(); i++) {
+            if (ingredients.get(i).getName() == newIngredient.getName()) {
+                index = i;
+            }
+        }
         if (index != -1) {
             mealListItem = ingredients.get(index);
             mealListItem.setAmount(mealListItem.getAmount() + newIngredient.getAmount());
