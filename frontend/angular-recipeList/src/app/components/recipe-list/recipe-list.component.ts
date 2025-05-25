@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RecipeService } from '../../services/recipe/recipe.service';
 import { Recipe } from '../../common/recipe';
 import { ActivatedRoute } from '@angular/router';
@@ -6,13 +6,14 @@ import { Ingredient } from '../../common/ingredient';
 import { IngredientService } from '../../services/ingredient/ingredient.service';
 import { GroceryListService } from '../../services/grocery-list/grocery-list.service';
 import { RefreshService } from '../../services/refreshService/refresh.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list-grid.component.html',
   styleUrl: './recipe-list.component.css',
 })
-export class RecipeListComponent implements OnInit {
+export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[] = [];
   ingredients: Ingredient[] = [];
   currentCategoryId: number = 1;
@@ -22,13 +23,20 @@ export class RecipeListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
   previousKeyword: string = '';
+  isUpdated: boolean = false;
+  subscription: Subscription;
 
   constructor(
     private recipeService: RecipeService,
     private groceryListService: GroceryListService,
     private route: ActivatedRoute,
     private refreshService: RefreshService
-  ) {}
+  ) {
+    this.subscription = this.recipeService.data$.subscribe((value) => {
+      this.recipes = value;
+      this.displayRecipes(value);
+    });
+  }
 
   ngOnInit(): void {
     this.listRecipes();
@@ -69,7 +77,7 @@ export class RecipeListComponent implements OnInit {
         this.thePageSize,
         theKeyword
       )
-      .subscribe(this.processResult());
+      .subscribe((data) => this.displayRecipes(data));
   }
 
   //displays list of recipes in a paginated list
@@ -97,28 +105,31 @@ export class RecipeListComponent implements OnInit {
         this.thePageSize,
         this.currentCategoryId
       )
-      .subscribe(this.processResult());
+      .subscribe((data) => this.displayRecipes(data));
   }
 
   updatePageSize(pageSize: string) {
-    this.thePageSize = +pageSize;
-    this.thePageNumber = 1;
-    this.listRecipes();
+    if (!this.isUpdated) {
+      this.thePageSize = +pageSize;
+      this.thePageNumber = 1;
+      this.listRecipes();
+      this.isUpdated = true;
+    }
   }
 
-  processResult() {
-    return (data: any) => {
-      this.recipes = data._embedded.recipes;
-      this.thePageNumber = data.page.number + 1;
-      this.thePageSize = data.page.size;
-      this.theTotalElements = data.page.totalElements;
-
-      this.updatePageSize(this.thePageSize.toString());
-    };
+  displayRecipes(data: any) {
+    this.recipes = data._embedded.recipes;
+    this.thePageNumber = data.page.number + 1;
+    this.thePageSize = data.page.size;
+    this.theTotalElements = data.page.totalElements;
   }
 
   //adds meal to meal list when button is clicked
   addToList(theRecipe: Recipe) {
     this.groceryListService.updateMealList(theRecipe, true);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

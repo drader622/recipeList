@@ -36,7 +36,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
 
-        cors.addMapping("/**").allowedOrigins("https://localhost:4200", "http://localhost:4200").allowedMethods("*")
+        cors.addMapping("/**").allowedOrigins("https://localhost:4200", "http://localhost:4200", "https://meal-list-app-b147aa3251ed.herokuapp.com", "http://www.meal-list-app.com/").allowedMethods("*")
                 .allowedHeaders("*");
         //disable HTTP methods for Product: PUT, POST and DELETE
         config.getExposureConfiguration()
@@ -60,7 +60,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
+                        .allowedOrigins("http://localhost:4200", "https://meal-list-app-b147aa3251ed.herokuapp.com", "http://www.meal-list-app.com/").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
             }
         };
     }

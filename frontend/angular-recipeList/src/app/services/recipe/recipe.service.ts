@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Recipe } from '../../common/recipe';
 import { map } from 'rxjs/operators';
 import { RecipeCategory } from '../../common/recipe-category';
@@ -14,6 +14,9 @@ export class RecipeService {
   private baseUrl = `${environment.apiEndpoint}/recipes`;
   private categoryUrl = `${environment.apiEndpoint}/recipe-category`;
   private ingredientBaseUrl = `${environment.apiEndpoint}/recipeIngredients`;
+
+  private dataSubject = new Subject<any>();
+  public data$ = this.dataSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -82,6 +85,10 @@ export class RecipeService {
     return this.httpClient
       .get<GetResponseRecipeCategory>(this.categoryUrl)
       .pipe(map((response) => response._embedded.recipeCategory));
+  }
+
+  updateData(newData: any) {
+    this.dataSubject.next(newData);
   }
 }
 
