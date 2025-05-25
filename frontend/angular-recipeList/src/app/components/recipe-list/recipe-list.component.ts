@@ -112,6 +112,8 @@ export class RecipeListComponent implements OnInit {
       this.thePageNumber = data.page.number + 1;
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements;
+
+      this.updatePageSize(this.thePageSize.toString());
     };
   }
 
