@@ -88,7 +88,27 @@ export class RecipeService {
   }
 
   updateData(newData: any) {
+    this.getCategory();
     this.dataSubject.next(newData);
+  }
+
+  getCategory() {
+    let link = document.querySelector('.active-link');
+
+    if (link?.classList[0]) return this.getCatNum(link.classList[0]);
+
+    return 1;
+  }
+
+  private getCatNum(catName: String) {
+    if (catName === 'Chicken') return 1;
+    else if (catName === 'Pork') return 2;
+    else if (catName === 'Beef') return 3;
+    else if (catName === 'Seafood') return 4;
+    else if (catName === 'Turkey') return 5;
+    else if (catName === 'Vegetarian') return 6;
+
+    return 1;
   }
 }
 

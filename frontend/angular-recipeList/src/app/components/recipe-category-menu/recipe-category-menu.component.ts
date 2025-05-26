@@ -31,7 +31,6 @@ export class RecipeCategoryMenuComponent {
   }
 
   loadCategoryList(categoryId: number) {
-    console.log(categoryId);
     this.recipeService
       .getRecipeListPaginate(
         this.thePageNumber - 1,
@@ -39,7 +38,6 @@ export class RecipeCategoryMenuComponent {
         categoryId
       )
       .subscribe((data) => {
-        console.log(data);
         this.recipeService.updateData(data);
       });
   }

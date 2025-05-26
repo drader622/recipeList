@@ -82,6 +82,8 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   //displays list of recipes in a paginated list
   handleListRecipes() {
+    this.previousCategoryId = this.recipeService.getCategory();
+
     // check if "id" param is available
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
@@ -105,7 +107,14 @@ export class RecipeListComponent implements OnInit, OnDestroy {
         this.thePageSize,
         this.currentCategoryId
       )
-      .subscribe((data) => this.displayRecipes(data));
+      .subscribe((data) => {
+        this.displayRecipes(data);
+        if (this.previousCategoryId === 1) {
+          setTimeout(() => {
+            document.querySelector('.Chicken')?.classList.add('active-link');
+          }, 50);
+        }
+      });
   }
 
   updatePageSize(pageSize: string) {

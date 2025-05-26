@@ -5,7 +5,7 @@ import { User } from '../../common/user';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-const baseUrl = `${environment.apiEndpoint}/users`;
+const baseUrl = 'http://localhost:8080/api/users';
 
 @Injectable({
   providedIn: 'root',
