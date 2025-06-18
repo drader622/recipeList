@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Recipe } from '../../common/recipe';
 import { map } from 'rxjs/operators';
 import { RecipeCategory } from '../../common/recipe-category';
@@ -14,6 +14,9 @@ export class RecipeService {
   private baseUrl = `${environment.apiEndpoint}/recipes`;
   private categoryUrl = `${environment.apiEndpoint}/recipe-category`;
   private ingredientBaseUrl = `${environment.apiEndpoint}/recipeIngredients`;
+
+  private dataSubject = new Subject<any>();
+  public data$ = this.dataSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -82,6 +85,30 @@ export class RecipeService {
     return this.httpClient
       .get<GetResponseRecipeCategory>(this.categoryUrl)
       .pipe(map((response) => response._embedded.recipeCategory));
+  }
+
+  updateData(newData: any) {
+    this.getCategory();
+    this.dataSubject.next(newData);
+  }
+
+  getCategory() {
+    let link = document.querySelector('.active-link');
+
+    if (link?.classList[0]) return this.getCatNum(link.classList[0]);
+
+    return 1;
+  }
+
+  private getCatNum(catName: String) {
+    if (catName === 'Chicken') return 1;
+    else if (catName === 'Pork') return 2;
+    else if (catName === 'Beef') return 3;
+    else if (catName === 'Seafood') return 4;
+    else if (catName === 'Turkey') return 5;
+    else if (catName === 'Vegetarian') return 6;
+
+    return 1;
   }
 }
 

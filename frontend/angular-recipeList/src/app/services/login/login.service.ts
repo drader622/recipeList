@@ -5,7 +5,7 @@ import { User } from '../../common/user';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-const baseUrl = `${environment.apiEndpoint}/users`;
+const baseUrl = 'https://meal-list-app-b147aa3251ed.herokuapp.com/api/users';
 
 @Injectable({
   providedIn: 'root',

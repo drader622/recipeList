@@ -65,9 +65,13 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
+<<<<<<< HEAD
                         .allowedOrigins("http://localhost:4200", "https://meal-list-app-b147aa3251ed.herokuapp.com",
                                 "http://www.meal-list-app.com/")
                         .allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
+=======
+                        .allowedOrigins("http://localhost:4200", "https://meal-list-app-b147aa3251ed.herokuapp.com", "http://www.meal-list-app.com/").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*");
+>>>>>>> ff77fb2f118370241b8c16e80b8507df0269d654
             }
         };
     }
