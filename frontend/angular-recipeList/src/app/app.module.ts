@@ -21,19 +21,9 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 import { PurchaseDetailsComponent } from './components/purchase-details/purchase-details.component';
 
-import {
-  OktaAuthModule,
-  OktaCallbackComponent,
-  OKTA_CONFIG,
-} from '@okta/okta-angular';
-
-import { OktaAuth } from '@okta/okta-auth-js';
-import myAppConfig from './config/my-app-config';
 import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-const oktaConfig = myAppConfig.oidc;
-const oktaAuth = new OktaAuth(oktaConfig);
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -73,10 +63,9 @@ const routes: Routes = [
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    OktaAuthModule,
     ReactiveFormsModule,
   ],
-  providers: [RecipeService, { provide: OKTA_CONFIG, useValue: { oktaAuth } }],
+  providers: [RecipeService],
   bootstrap: [AppComponent],
   exports: [
     ReactiveFormsModule

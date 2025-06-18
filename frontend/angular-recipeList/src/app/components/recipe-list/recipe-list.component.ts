@@ -22,6 +22,7 @@ export class RecipeListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
   previousKeyword: string = '';
+  pageUpdated: boolean = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -31,6 +32,7 @@ export class RecipeListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.pageUpdated = false;
     this.listRecipes();
     this.refreshService.triggerRefresh();
     this.groceryListService.getMealList().subscribe((meals) => {
@@ -43,12 +45,14 @@ export class RecipeListComponent implements OnInit {
   }
   //determines if component was generated from search or not and handles recipes accordingly
   listRecipes() {
-    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+    if (!this.pageUpdated) {
+      this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
-    if (this.searchMode) {
-      this.handleSearchRecipes();
-    } else {
-      this.handleListRecipes();
+      if (this.searchMode) {
+        this.handleSearchRecipes();
+      } else {
+        this.handleListRecipes();
+      }
     }
   }
 
@@ -103,6 +107,7 @@ export class RecipeListComponent implements OnInit {
   updatePageSize(pageSize: string) {
     this.thePageSize = +pageSize;
     this.thePageNumber = 1;
+    this.pageUpdated = true;
     this.listRecipes();
   }
 
